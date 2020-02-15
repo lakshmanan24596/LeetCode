@@ -28,40 +28,84 @@ A solution set is:
 
 class Solution 
 {
-    int[] candidates;
-    List<Integer> currOutput = new ArrayList<Integer>();
-    List<List<Integer>> output = new ArrayList<List<Integer>>();
+//     Recursion    --> O(candiates.length ^ target)
+//     Memorization --> O(candiates.length * target) 
+//     (target involved, because one candidate can be used many times)
     
-    // Time ==> O(candiates.length ^ target)
+//     int[] candidates;
+//     List<Integer> currOutput = new ArrayList<Integer>();
+//     List<List<Integer>> output = new ArrayList<List<Integer>>();
+  
+//     public List<List<Integer>> combinationSum(int[] candidates, int target) 
+//     {
+//         this.candidates = candidates;
+//         //Array.sort(candidates);                               // no need sorting
+
+//         recur(target, 0);
+//         return output;
+//     }
+   
+//     public void recur(int target, int startIndex)
+//     {
+//         if(target == 0)
+//         {        
+//             output.add(new ArrayList<Integer>(currOutput));
+//             return;
+//         }
+      
+//         for(int i=startIndex; i<candidates.length; i++)         // i = startIndex --> because output should be unique
+//         {
+//             if(candidates[i] <= target)
+//             {
+//                 currOutput.add(candidates[i]);                  // pre-order
+//                 recur(target-candidates[i], i);                 // i --> next startIndex
+//                 currOutput.remove(currOutput.size() - 1);
+//             }
+//         }
+//     }
+    
+    
+    // DP memorization
+    int[] candidates;
+    HashMap<Integer, List<List<Integer>>> DP = new HashMap<Integer, List<List<Integer>>>(); // key = target, value = List<List<>> output
     
     public List<List<Integer>> combinationSum(int[] candidates, int target) 
     {
         this.candidates = candidates;
-        //Array.sort(candidates);        
-        recur(target, 0);
-        return output;
+        Arrays.sort(candidates);                                    // sorting is needed in DP (both tabuldation and memorization)
+            
+        List<List<Integer>> output = new ArrayList<List<Integer>>();      
+        output.add(new ArrayList<Integer>());
+        DP.put(0, output);                                          // base case is handled in DP map, to avoid creating unwanted empty list (memory)                                                       
+        return recur(target);
     }
     
-    public void recur(int target, int startIndex)
+    public List<List<Integer>> recur(int target)
     {
-        if(target == 0)
-        {      	
-            output.add(new ArrayList<Integer>(currOutput));
-            return;
-        }
+        List<List<Integer>> output = new ArrayList<List<Integer>>();
         
-        for(int i=startIndex; i<candidates.length; i++)         // i = startIndex --> because output should be unique
+        if(DP.containsKey(target))
+            return DP.get(target);
+         
+        for(int i=0; i<candidates.length; i++)
         {
             if(candidates[i] <= target)
             {
-            	currOutput.add(candidates[i]);
-                recur(target-candidates[i], i);                 // i --> next startIndex
-                currOutput.remove(currOutput.size() - 1);
+                List<List<Integer>> currOutput = recur(target-candidates[i]);   
+                
+                for(List<Integer> list : currOutput)
+                {
+                    if(list.isEmpty() || candidates[i] <= list.get(list.size()-1))  // to maintain list in decending order 
+                    {
+                        list = new ArrayList<Integer>(list);                        // clone it, because we are storing the reference in DP
+                        list.add(candidates[i]);                
+                        output.add(list);
+                    }                                                               // post-order
+                }
             }
         }
+        
+        DP.put(target, output);
+        return output;
     }
-    
-    // we can also use DP for this problem. 
-    // For each target we need to store List<List<Integer>>
-    // if target is already solved then just return it.
 }
