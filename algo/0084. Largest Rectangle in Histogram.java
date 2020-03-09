@@ -18,7 +18,7 @@ class Solution
         // formula for both methods = (arr[curr]) * (rightBar - leftBar);
         
         Stack<Integer> stack = new Stack<Integer>();
-		int result = 0, currResult;
+        int result = 0, currResult;
         int i, top;
         
         for(i = 0; i < arr.length; )
