@@ -11,7 +11,7 @@ Output: 10
 
 class Solution 
 {
-    public int largestRectangleArea(int[] arr) /
+    public int largestRectangleArea(int[] arr)
     {
         // 1) brute : O(n^2) --> consider all bars as starting points and calculate area of all rectangles starting with every bar.
         // 2) stack : O(2n)  --> using stack --> where left can be found using stack and right is curr index
