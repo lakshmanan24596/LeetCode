@@ -35,13 +35,13 @@ class Solution
         boolean initialObstracleFound;
         if(arr[0][0] == 1)
         {
-        	initialObstracleFound = true;
-        	arr[0][0] = 0;
+            initialObstracleFound = true;
+            arr[0][0] = 0;
         }
         else
         {
-        	initialObstracleFound = false;
-        	arr[0][0] = 1;
+            initialObstracleFound = false;
+            arr[0][0] = 1;
         }
 
         // first row
