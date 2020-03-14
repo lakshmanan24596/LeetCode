@@ -54,7 +54,6 @@ class Solution
                 i++;
             }
         }
-        return j+1;
-        
+        return j+1;        
     }
 }
