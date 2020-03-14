@@ -82,7 +82,7 @@ class Solution
     
     public List<List<Integer>> recur(int target)
     {
-        List<List<Integer>> output = new ArrayList<List<Integer>>();
+        List<List<Integer>> output = new ArrayList<List<Integer>>();                // declare locally, because we are storing the reference in DP
         
         if(DP.containsKey(target))
             return DP.get(target);
@@ -99,8 +99,8 @@ class Solution
                     {
                         list = new ArrayList<Integer>(list);                        // clone it, because we are storing the reference in DP
                         list.add(candidates[i]);                
-                        output.add(list);
-                    }                                                               // post-order
+                        output.add(list);                                           // post-order
+                    }
                 }
             }
         }
