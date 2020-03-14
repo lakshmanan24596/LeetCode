@@ -82,7 +82,7 @@ class Solution
     
     public List<List<Integer>> recur(int target)
     {
-        List<List<Integer>> output = new ArrayList<List<Integer>>();
+        List<List<Integer>> output = new ArrayList<List<Integer>>();                // declare locally, because we are storing the reference in DP
         
         if(DP.containsKey(target))
             return DP.get(target);
