@@ -99,8 +99,8 @@ class Solution
                     {
                         list = new ArrayList<Integer>(list);                        // clone it, because we are storing the reference in DP
                         list.add(candidates[i]);                
-                        output.add(list);
-                    }                                                               // post-order
+                        output.add(list);                                           // post-order
+                    }
                 }
             }
         }
