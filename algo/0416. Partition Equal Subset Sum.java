@@ -79,9 +79,9 @@ class Solution
             for(int j = 1; j <= targetSum; j++)
             {
             	if(j < nums[i-1])
-            		DP[i][j] = DP[i-1][j];							// get from top
+                    DP[i][j] = DP[i-1][j];                          // get from top
             	else
-            		DP[i][j] = DP[i-1][j] || DP[i-1][j-nums[i-1]];	// get from top or top-left
+                    DP[i][j] = DP[i-1][j] || DP[i-1][j-nums[i-1]];  // get from top or top-left
             }
         }        
         return DP[n][targetSum];
@@ -107,9 +107,9 @@ class Solution
             for(int j = 1; j <= targetSum; j++)
             {
             	if(j < nums[i-1])
-            		DP[1][j] = DP[0][j];							// get from top
+                    DP[1][j] = DP[0][j];                            // get from top
             	else
-            		DP[1][j] = DP[0][j] || DP[0][j-nums[i-1]];	    // get from top or top-left
+                    DP[1][j] = DP[0][j] || DP[0][j-nums[i-1]];      // get from top or top-left
             }
             DP[0] = Arrays.copyOf(DP[1], targetSum + 1);            // main logic.. copy first row to zero row for next iteration
         }        
