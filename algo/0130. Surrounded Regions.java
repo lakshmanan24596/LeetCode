@@ -23,7 +23,7 @@ Two cells are connected if they are adjacent cells connected horizontally or ver
 */
 
 class Solution 
-{	
+{   
     int row, col;
     int[] xSide = new int[]{0, -1, 0, 1};
     int[] ySide = new int[]{-1, 0, 1, 0};
@@ -47,18 +47,18 @@ class Solution
         {
             for(int j = 1; j <= col - 2; j++)               // iterate by leaving all 4 corners
             {
-            	if(board[i][j] == 'O' || !visited[i][j])
-            	{
-            		list = new ArrayList<Temp>();
-            		if(!DFS(i, j))
-	                {
-				        // reset 'X' to 'O' when false is returned
-        				for(Temp obj : list)
-        				{
-        					board[obj.i][obj.j] = 'O';
-        				}		                
-	                }
-            	}	
+                if(board[i][j] == 'O' || !visited[i][j])
+                {
+                    list = new ArrayList<Temp>();
+                    if(!DFS(i, j))
+                    {
+                        // reset 'X' to 'O' when false is returned
+                        for(Temp obj : list)
+                        {
+                            board[obj.i][obj.j] = 'O';
+                        }                       
+                    }
+                }   
             }
         }
     }
@@ -93,12 +93,12 @@ class Solution
 
 class Temp
 {
-	int i, j;
-	Temp(int i, int j)
-	{
-		this.i = i;
-		this.j = j;
-	}
+    int i, j;
+    Temp(int i, int j)
+    {
+        this.i = i;
+        this.j = j;
+    }
 }
 
 
