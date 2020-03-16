@@ -52,11 +52,11 @@ class Solution
             		list = new ArrayList<Temp>();
             		if(!DFS(i, j))
 	                {
-                        // reset 'X' to 'O' when false is returned
-                        for(Temp obj : list)
-                        {
-                            board[obj.i][obj.j] = 'O';
-                        }		                
+				        // reset 'X' to 'O' when false is returned
+        				for(Temp obj : list)
+        				{
+        					board[obj.i][obj.j] = 'O';
+        				}		                
 	                }
             	}	
             }
@@ -81,7 +81,7 @@ class Solution
         
         if(s1 && s2 && s3 && s4)    
         {
-        	board[i][j] = 'X';      // it is a surrounder region
+            board[i][j] = 'X';      // it is a surrounder region
             return true;
         }    
         else
