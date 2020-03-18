@@ -149,7 +149,12 @@ class Solution
 //                         int currOutput = Integer.MAX_VALUE;
 //                         for(int k = start; k < end; k++)                                            // split is all posiitons
 //                         {
-//                             currOutput = Math.min(currOutput, 1 + DP[start][k] + DP[k+1][end]);     // main logic
+//                             currOutput = Math.min(currOutput, 1 + DP[start][k] + DP[k+1][end]);
+//                             // consider, "abcd" (length 4).. we need to cut in all possible position
+//                             // cut position: (a, bcd), (ab, cd), (abc, d).. so this loop will run 3 times for "abcd"
+//                             // for (a,bcd) --> 1 + leftSide + rightSide
+//                             //      DP[start][k] is left side of cut.. "a" is again a subproblem which is already solved and stored in DP (of length 1)
+//                             //      DP[k+1][end] is right side of cut.. "bcd" is again a subproblem which is already solved and stored in DP (of length 3)
 //                         }
 //                         DP[start][end] = currOutput;
 //                     }
