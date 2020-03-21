@@ -78,27 +78,24 @@ class Solution
             return null;
         
         Node clonedNodeHead = getFromMap(node.val);
-
         dfsUtil(node); 
         return clonedNodeHead;
     }
         
-    public void dfsUtil(Node curr)                                  // curr, clonedCurr, next, clonedNext.. these are 4 variables used
+    public void dfsUtil(Node curr)
     {
         visited.add(curr.val);
-        List<Node> adjList = curr.neighbors;
-                
-        Node clonedCurr = getFromMap(curr.val);                     // process current node
+        List<Node> adjList = curr.neighbors;                
+        
+        Node clonedCurr = getFromMap(curr.val);                         // curr, clonedCurr, next, clonedNext.. these are 4 variables used
+        Node next, clonedNext;
+        
         for(int i = 0; i < adjList.size(); i++)
         {
-            Node next = adjList.get(i);
-            Node clonedNext = getFromMap(next.val);
-            clonedCurr.neighbors.add(clonedNext);                   // main logic.. add neighbors in clonedCurr
-        }
-                  
-        for(int i = 0; i < adjList.size(); i++)                     // do DFS
-        {
-            Node next = adjList.get(i);
+            next = adjList.get(i);
+            clonedNext = getFromMap(next.val);
+            clonedCurr.neighbors.add(clonedNext);                       // main logic.. add neighbors in clonedCurr
+            
             if(!visited.contains(next.val))
             {
                 dfsUtil(next);
