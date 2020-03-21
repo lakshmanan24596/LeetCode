@@ -23,7 +23,7 @@ class Solution
         // brute      : O(NK)  
         // sort       : O((N*logN)+K)
         // heap       : O(n*logK)
-        // quick sort : O(2n)
+        // quick sort : O(2n)                  // T(n) = T(n/2) + (n-1) ==> 2N in best case
          
         int n = nums.length;
         this.k = k;
