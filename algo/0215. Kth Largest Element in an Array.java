@@ -23,11 +23,11 @@ class Solution
         // brute      : O(NK)  
         // sort       : O((N*logN)+K)
         // heap       : O(n*logK)
-        // quick sort : O(n)
+        // quick sort : O(2n)
          
         int n = nums.length;
         this.k = k;
-        this.heap = new int[k];
+        this.heap = new int[k];                // heap of size k
         
         for(int i = 0; i < k; i++)             // first K elements
             heap[i] = nums[i];
@@ -46,10 +46,10 @@ class Solution
         return heap[0];
     }
     
-    public void minHeapify(int i)
+    public void minHeapify(int i)                                  // for heap sort alone, send size as a extra param
     {
         int left = (2 * i) + 1;
-        int right = (2 * i) + 2;
+        int right = (2 * i) + 2;    
         int small = i;
         
         if(left >= 0 && left < k && heap[left] < heap[small])       // k is the size of the heap
@@ -73,8 +73,66 @@ class Solution
     }
 }
 
-// O(n) solution using quick sort
 
+// Time = O(n^2) is worst case and O(2n) in avg case
+
+// class Solution
+// {
+//     int[] nums;
+//     int n, k;
+    
+//     public int findKthLargest(int[] nums, int k) 
+//     {
+//         this.n = nums.length;
+//         this.nums = nums;
+//         this.k = n - k;                             // because kth largest == (n-k) smallest        
+//         return quickSort(0, n-1);
+//     }
+    
+//     public int quickSort(int left, int right)
+//     {
+//         if(left > right)
+//             return nums[k];
+        
+//         int j = partition(left, right);
+//         if(j == k)                                  // found ans
+//             return nums[k];
+//         else if(k < j)
+//             return quickSort(left, j -1);           // recur left or
+//         else
+//             return quickSort(j+1, right);           // recur right
+//     }
+    
+//     public int partition(int left, int right)
+//     {
+//         int i = left, j = right;
+//         int pivot = left;
+        
+//      while(i < j)
+//      {
+//          while(i < right && nums[i] <= nums[pivot])  // find nums[i] greater than pivot
+//              i++;
+//          while(j > left && nums[j] >= nums[pivot])   // find nums[j] lesser than pivot
+//              j--;
+//          if(i < j)
+//              swap(i, j);
+//      }
+        
+//      swap(pivot, j);
+//      return j;
+//     }
+    
+//     public void swap(int i, int j)
+//     {
+//         int temp = nums[i];
+//         nums[i] = nums[j];
+//         nums[j] = temp;
+//     }
+// }
+
+
+
+// O(n) solution using quick sort
 // class Solution {
 //     public int findKthLargest(int[] nums, int k) {
 //         return helper(0, nums.length - 1, nums,  nums.length - k);
@@ -100,10 +158,10 @@ class Solution
 //             r--;
 //         }
 //         // s...rl...e
-//         if (k >= l) {
-//             return helper(l, e, nums, k);    // recur right side
-//         } else if (k <= r){
-//             return helper(s, r, nums, k);    // recur left side
+//         if (l <= k) {
+//             return helper(l, e, nums, k);
+//         } else if (r >= k){
+//             return helper(s, r, nums, k);
 //         }
 //         return nums[k];
 //     }
