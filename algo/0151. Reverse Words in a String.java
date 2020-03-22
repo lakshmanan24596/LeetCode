@@ -30,25 +30,25 @@ class Solution
 // no need to reverse in this case
     
     public String reverseWords(String s)
-	{        
-		StringBuilder sb = new StringBuilder();
+    {        
+        StringBuilder sb = new StringBuilder();
         int end = -1;
-		       
+               
         for(int i = s.length() - 1; i >= 0; i--)
         {
             if(s.charAt(i) == ' ')
             {
-            	if(end != -1)
-            	{
-            		sb = sb.append(s.substring(i+1, end+1)).append(" ");    // main logic
-            		end = -1;
-            	}
+                if(end != -1)
+                {
+                    sb = sb.append(s.substring(i+1, end+1)).append(" ");    // main logic
+                    end = -1;
+                }
             }
             else
             {
-            	if(end == -1)
-            		end = i;
-            } 	
+                if(end == -1)
+                    end = i;
+            }   
         }
         
         if(end != -1) 
@@ -57,7 +57,7 @@ class Solution
         if(sb.length() != 0)
             sb.deleteCharAt(sb.length() - 1) ;                              // remove last space, which is added unnecessarily
         
-		return sb.toString();
+        return sb.toString();
     }
     
     
@@ -66,26 +66,26 @@ class Solution
     
 //     public String reverseWords(String s) 
 //     {
-//         s = s.trim().replaceAll(" +", " ");	    // trim and then replace 2 or more spaces to 1 space
+//         s = s.trim().replaceAll(" +", " ");      // trim and then replace 2 or more spaces to 1 space
         
 //         int start = -1;
 //         for(int i = 0; i < s.length(); i++)
 //         {
 //             if(s.charAt(i) == ' ')
 //             {
-//             	    if(start != -1)
-//             	    {
-// 	                    s = reverse(s, start, i-1); 
-// 	                    start = -1;
-//             	    }
+//                  if(start != -1)
+//                  {
+//                      s = reverse(s, start, i-1); 
+//                      start = -1;
+//                  }
 //             }
 //             else
 //             {
-//             	    if(start == -1)
-//             		    start = i;                  // reset start for next batch
-//             }	
+//                  if(start == -1)
+//                      start = i;                  // reset start for next batch
+//             }    
 //         }
-//         s = reverse(s, start, s.length()-1); 	// reverse last batch
+//         s = reverse(s, start, s.length()-1);     // reverse last batch
            
 //         return reverse(s, 0, s.length()-1);      // reverse full string
 //     }
