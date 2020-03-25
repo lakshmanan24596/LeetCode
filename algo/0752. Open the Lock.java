@@ -49,7 +49,7 @@ class Solution
     {
         this.target = Integer.parseInt(target);
         for(String curr : deadends)
-        	visited[Integer.valueOf(curr)] = true;         // copy deadends to visited array
+            visited[Integer.valueOf(curr)] = true;         // copy deadends to visited array
         
         if(visited[start])                                 // if start is present in deadends
             return -1;
@@ -66,37 +66,37 @@ class Solution
         queue.add(curr);
         
         while(!queue.isEmpty())
-    	{
-    		output++;                                       // number of levels in bfs state space tree is the output
-    		queueSize = queue.size();
-    		for(int i = 0; i < queueSize; i++)
-    		{
-    			curr = queue.remove();
-    			for(int j = 1; j <= directions; j++)        // rotate in all 8 possible ways
-    			{
-    				next = rotateLock(curr, j);             
-    				if(next == target)
-    				{
-    					return output;
-    				}
-    				if(!visited[next])
+        {
+            output++;                                       // number of levels in bfs state space tree is the output
+            queueSize = queue.size();
+            for(int i = 0; i < queueSize; i++)
+            {
+                curr = queue.remove();
+                for(int j = 1; j <= directions; j++)        // rotate in all 8 possible ways
+                {
+                    next = rotateLock(curr, j);             
+                    if(next == target)
                     {
-    					visited[next] = true;
+                        return output;
+                    }
+                    if(!visited[next])
+                    {
+                        visited[next] = true;
                         queue.add(next);
-    				}
-    			}
-    		}
-    	}
+                    }
+                }
+            }
+        }
         return -1;                                          // cannot reach target in any of the possible ways
     }
     
     public int rotateLock(int curr, int index)
     {
-    	//int size = (int)(Math.log(curr)/Math.log(10)) + 1;
-    	switch(index)
+        //int size = (int)(Math.log(curr)/Math.log(10)) + 1;
+        switch(index)
         {
-        	// rotate forward
-            case 1:	return ((curr % 10) == 9)           ? curr - 9      : curr + 1;
+            // rotate forward
+            case 1: return ((curr % 10) == 9)           ? curr - 9      : curr + 1;
             case 2: return (((curr / 10) % 10) == 9)    ? curr - 90     : curr + 10;
             case 3: return (((curr / 100) % 10) == 9)   ? curr - 900    : curr + 100;
             case 4: return (((curr / 1000) % 10) == 9)  ? curr - 9000   : curr + 1000;
@@ -107,7 +107,7 @@ class Solution
             case 7: return (((curr / 100) % 10) == 0)   ? curr + 900    : curr - 100;
             case 8: return (((curr / 1000) % 10) == 0)  ? curr + 9000   : curr - 1000;
         } 
-    	
-        return -1;	// wont occur
+        
+        return -1;  // wont occur
     }
 }
