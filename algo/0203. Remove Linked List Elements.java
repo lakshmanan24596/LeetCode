@@ -40,7 +40,7 @@ class Solution
                 }
                 while(curr != null && curr.val == val);
                 
-                prev.next = curr;                       // remove duplicates
+                prev.next = curr;                       // main logic.. remove duplicates
             }
                      
             prev = curr;                                // for next iteration, change prev and curr
