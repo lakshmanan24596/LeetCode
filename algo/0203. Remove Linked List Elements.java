@@ -22,10 +22,10 @@ class Solution
             return null;
         
         while(head != null && head.val == val)
-            head = head.next;                       // remove duplicates in front
+            head = head.next;                           // remove duplicates in front
         
         if(head == null)
-            return null;                            // if all elements are duplicate values, then return null
+            return null;                                // if all elements are duplicate values, then return null
         
         ListNode prev = head;
         ListNode curr = head.next;
@@ -40,14 +40,11 @@ class Solution
                 }
                 while(curr != null && curr.val == val);
                 
-                prev.next = curr;                   // remove duplicates
+                prev.next = curr;                       // remove duplicates
             }
                      
-            if(curr != null)
-            {
-                prev = curr;                        // for next iteration, change prev and curr
-                curr = curr.next;
-            }
+            prev = curr;                                // for next iteration, change prev and curr
+            curr = (curr != null) ? curr.next : null;
         }
 
         return head;
