@@ -49,7 +49,7 @@ class Solution
             return (int)Math.pow(2, rightHeight) + countNodes(root.left);
     }
     
-    private int countHeight(TreeNode root) 
+    public int countHeight(TreeNode root) 
     {
         if (root == null)
             return 0;
