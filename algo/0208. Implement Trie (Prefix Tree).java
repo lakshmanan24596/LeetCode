@@ -42,10 +42,10 @@ class Trie
         
         for(int i = 0; i < len; i++)
         {
-        	index = word.charAt(i) - 'a';
-        	if(curr.children[index] == null)
-        		curr.children[index] = new TrieNode();      // allocate memory to children
-        	curr = curr.children[index];
+            index = word.charAt(i) - 'a';
+            if(curr.children[index] == null)
+                curr.children[index] = new TrieNode();      // allocate memory to children
+            curr = curr.children[index];
         }
         curr.isLeaf = true;
     }
@@ -58,10 +58,10 @@ class Trie
         
         for(int i = 0; i < len; i++)
         {
-        	index = word.charAt(i) - 'a';
-        	if(curr.children[index] == null)
-        		return false;
-        	curr = curr.children[index];
+            index = word.charAt(i) - 'a';
+            if(curr.children[index] == null)
+                return false;
+            curr = curr.children[index];
         }  
         return curr.isLeaf;
     }
@@ -74,10 +74,10 @@ class Trie
         
         for(int i = 0; i < len; i++)
         {
-        	index = prefix.charAt(i) - 'a';
-        	if(curr.children[index] == null)
-        		return false;
-        	curr = curr.children[index];
+            index = prefix.charAt(i) - 'a';
+            if(curr.children[index] == null)
+                return false;
+            curr = curr.children[index];
         }  
         return true;
     }
