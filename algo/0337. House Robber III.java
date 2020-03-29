@@ -40,11 +40,11 @@ Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
  */
 class Solution 
 {
-    // Normal Inorder Time = 1 + 2T(n/2)            ==> n
-    // Curr Problem Time   = 1 + 2T(n/2) + 4T(n/4)  ==> exponential
+    // Recur Time = 1 + 2T(n/2) + 4T(n/4)  ==> exponential
+    // DP Time    = 1 + 2T(n/2)            ==> n
     
     HashMap<TreeNode, Integer> DP = new HashMap<TreeNode, Integer>();
-    
+
     public int rob(TreeNode root) 
     {
         if(root == null)
@@ -53,7 +53,7 @@ class Solution
         if(DP.containsKey(root))                                            // if already processed, return it
             return DP.get(root);
         
-        int currVal = root.val; 
+        int currVal = root.val;
         
         if(root.left != null)
             currVal += rob(root.left.left) + rob(root.left.right);
@@ -66,3 +66,24 @@ class Solution
         return output;
     }   
 }
+
+// class Solution
+// {
+//     public int rob(TreeNode root) {
+//         int[] res = robSub(root);
+//         return Math.max(res[0], res[1]);
+//     }
+
+//     private int[] robSub(TreeNode root) {
+//         if (root == null) return new int[2];         // array[2] is used which is secondPrev and firstPrev
+
+//         int[] left = robSub(root.left);
+//         int[] right = robSub(root.right);
+        
+//         int[] res = new int[2];
+//         res[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);      // firstPrev
+//         res[1] = root.val + left[0] + right[0];                                  // secondPrev
+
+//         return res;
+//     }
+// }
