@@ -22,8 +22,8 @@ You may assume that all operations are valid (for example, no pop or peek operat
 
 class MyQueue 
 {
-    // Space: n
-    // Time: push(2n), pop(1).. we can alter this and make push(1) and pop(n)
+    // Space : 2n
+    // Time  : push(2n), pop(1).. we can alter this and make push(1) and pop(n)
     
     Stack<Integer> stack1;
     Stack<Integer> stack2;
