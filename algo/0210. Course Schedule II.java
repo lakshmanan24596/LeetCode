@@ -1,25 +1,25 @@
 /*
-There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
+There are a total of n courses you have to take, labeled from 0 to n-1.
 Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
-Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+Given the total number of courses and a list of prerequisite pairs, return the ordering of courses you should take to finish all courses.
+There may be multiple correct orders, you just need to return one of them. If it is impossible to finish all courses, return an empty array.
 
 Example 1:
-Input: numCourses = 2, prerequisites = [[1,0]]
-Output: true
-Explanation: There are a total of 2 courses to take. 
-             To take course 1 you should have finished course 0. So it is possible.
+Input: 2, [[1,0]] 
+Output: [0,1]
+Explanation: There are a total of 2 courses to take. To take course 1 you should have finished   
+             course 0. So the correct course order is [0,1] .
 
 Example 2:
-Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
-Output: false
-Explanation: There are a total of 2 courses to take. 
-             To take course 1 you should have finished course 0, and to take course 0 you should
-             also have finished course 1. So it is impossible.
- 
-Constraints:
+Input: 4, [[1,0],[2,0],[3,1],[3,2]]
+Output: [0,1,2,3] or [0,2,1,3]
+Explanation: There are a total of 4 courses to take. To take course 3 you should have finished both     
+             courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0. 
+             So one correct course order is [0,1,2,3]. Another correct ordering is [0,2,1,3] .
+
+Note:
 The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
 You may assume that there are no duplicate edges in the input prerequisites.
-1 <= numCourses <= 10^5
 */
 
 class Solution 
@@ -29,12 +29,12 @@ class Solution
     Graph graph;
     int numCourses;
     
-    // logic: Do topological sorting and if cycle exist, then return false. Else return true.
+    // logic: Do topological sorting
     
-    public boolean canFinish(int numCourses, int[][] prerequisites) 
+    public int[] findOrder(int numCourses, int[][] prerequisites)  
     {
         if(numCourses <= 1)
-            return true;
+            return new int[]{0};
         
         this.numCourses = numCourses;
         visited = new boolean[numCourses];
@@ -50,10 +50,11 @@ class Solution
             graph.addEdge(prerequisites[i][1], prerequisites[i][0]);        // add edges
     }
     
-    public boolean topologicalBFS()
+    public int[] topologicalBFS()
     {
         Queue<Integer> queue = new LinkedList<Integer>();
         int[] inDegreeArr = new int[numCourses];        
+        int[] output = new int[numCourses];
         List<Integer> currAdjList;
         
         for(int i = 0; i < numCourses; i++)                                 
@@ -74,6 +75,7 @@ class Solution
             for(int i = 0; i < size; i++)
             {
                 int curr = queue.remove();
+                output[count] = curr;
                 count++;                                                    
                 
                 currAdjList = graph.adjList[curr];
@@ -87,7 +89,7 @@ class Solution
         }
         
         // now count will be number of elements added/removed in the queue
-        return count == numCourses;                                          // if no cycle exist in graph, then return true
+        return (count == numCourses) ? output : new int[0];                // if cycle exist in graph, then return empty array
     }
 }
 
