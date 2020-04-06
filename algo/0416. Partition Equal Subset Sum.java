@@ -118,7 +118,7 @@ class Solution
 }
 
 
-// Time = n! (but it eliminates duplicate input values.. so it works for leetcode input)
+// Time = 2^n (it eliminates duplicate input values.. so it works for leetcode input)
 
 // class Solution {
 //     public boolean canPartition(int[] num) {
