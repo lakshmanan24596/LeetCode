@@ -27,13 +27,12 @@ Output: 6
 class Solution 
 {
     /*
-    Time:::
-        T(n) = 2 log(n) + T(n/2)
+    Time:::  T(n) = 2 log(n) + T(n/2)
              = 2 log(n) + 2 log(n/2) + 2 log(n/4) +...
              = 2 (log(n) + log(n/2) + log(n/4)+...)
-             = 2 log(n)
-             = log(n)
-    */     
+             = 2 (log(n) * log(n))
+             = log(n)^2
+    */
     
     public int countNodes(TreeNode root)
     {
