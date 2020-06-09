@@ -18,17 +18,17 @@ Follow up: How would you extend your design to be generic and work with all type
 class PeekingIterator implements Iterator<Integer> 
 {
 	Iterator<Integer> iter;
-    Integer peekElem;
-    
-    public PeekingIterator(Iterator<Integer> iterator)
-    {
+	Integer peekElem;
+
+	public PeekingIterator(Iterator<Integer> iterator)
+	{
 	    iter = iterator;
-        peekElem = iter.next();
+	    peekElem = iter.next();
 	}
 	
     // Returns the next element in the iteration without advancing the iterator.
 	public Integer peek() 
-    {
+	{
         return peekElem;
 	}
 	
@@ -36,7 +36,7 @@ class PeekingIterator implements Iterator<Integer>
 	// Override them if needed.
 	@Override
 	public Integer next() 
-    {
+	{
 	    int result = peekElem;
         peekElem = iter.hasNext() ? iter.next() : null;
         return result;
@@ -44,7 +44,7 @@ class PeekingIterator implements Iterator<Integer>
 	
 	@Override
 	public boolean hasNext() 
-    {
+	{
 	    return peekElem != null;
 	}
 }
