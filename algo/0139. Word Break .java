@@ -40,25 +40,25 @@ class Solution
     }
     
     public boolean recur(String input)
-	{	
-		if(DP.contains(input)) {
+    {   
+        if(DP.contains(input)) {
             return false;
         }
-		
+        
         String prefix;
         int n = input.length();
-		for(int i = 1; i <= n; i++) 
+        for(int i = 1; i <= n; i++) 
         {
-			prefix = input.substring(0, i);
-			if(wordDictSet.contains(prefix))                        // prefix
+            prefix = input.substring(0, i);
+            if(wordDictSet.contains(prefix))                        // prefix
             {                      
-				if(i == n || recur(input.substring(i, n))) {        // suffix
-					return true;
-				}
-			}
-		}
-		
-		DP.add(input);	// DP contains inputs which are false
-		return false;
-	}
+                if(i == n || recur(input.substring(i, n))) {        // suffix
+                    return true;
+                }
+            }
+        }
+        
+        DP.add(input);  // DP contains inputs which are false
+        return false;
+    }
 }
