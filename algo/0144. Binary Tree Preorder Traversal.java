@@ -25,6 +25,9 @@ class Solution
 {
     public List<Integer> preorderTraversal(TreeNode root) 
     {
+        // preOrder --> use 1 stack and push right, left
+        // postOrder --> use 2 stack and push left, right
+        
         List<Integer> output = new ArrayList<Integer>();       
         if(root == null) {
             return output;
