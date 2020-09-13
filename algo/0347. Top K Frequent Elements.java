@@ -44,7 +44,7 @@ class Solution
             	}
             	heapCurrSize++;
             }
-            else					// remaining elements
+            else                    // remaining elements
             {
             	if(entry.getValue() > heap[0].getValue()) {
             		heap[0] = entry;
