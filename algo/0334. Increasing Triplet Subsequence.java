@@ -19,7 +19,7 @@ class Solution
     public boolean increasingTriplet(int[] nums) 
     {
         /*
-        solution 1 --> LIS --> n log k --> n log 3 --> n
+        solution 1 --> LIS --> n log k --> n log 3 --> n (using tail table approach)
         solution 2 --> using 2 variables --> n
         
         logic --> It is given in the ques that, arr[i] < arr[j] < arr[k] and also "i < j < k"
@@ -27,6 +27,7 @@ class Solution
         I would like to point out that for [1, 3, 0, 5] we will eventually arrive at big = 3 and small = 0
         Here, big comes before small.
         However, the solution still works, because "big only gets updated when there exists a small that comes before it."
+        We can only construct true/false and cannot find the proper triplet values with this method
         */
         
         int n = nums.length;
