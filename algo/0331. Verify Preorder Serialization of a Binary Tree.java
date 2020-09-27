@@ -60,4 +60,7 @@ class Solution
         boolean right = deserialize();
         return right;
     }
+    
+    // better solution without recursion: 
+    // https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/discuss/78551/7-lines-Easy-Java-Solution
 }
