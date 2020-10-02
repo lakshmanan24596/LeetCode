@@ -36,26 +36,26 @@ Output:
 
 class Solution 
 {
-    HashMap<String,List<String>> map;
-    Set<String> wordDictSet;
-    
-    public List<String> wordBreak(String s, List<String> wordDict) 
-    {
-        wordDictSet = new HashSet<String>(wordDict);
-        map = new HashMap<String,List<String>>();
-        return recur(s);
-    }
-    
+	HashMap<String,List<String>> map;
+	Set<String> wordDictSet;
+
+	public List<String> wordBreak(String s, List<String> wordDict) 
+	{
+		wordDictSet = new HashSet<String>(wordDict);
+		map = new HashMap<String,List<String>>();
+		return recur(s);
+	}
+
 	public List<String> recur(String input) 
 	{   
 		if(map.containsKey(input)) {
-            return map.get(input);
-        }
-		
+			return map.get(input);
+		}
+
 		List<String> output = new ArrayList<String>();
 		int n = input.length();
-        String prefix, suffix;
-        
+		String prefix, suffix;
+
 		for(int i = 1; i <= n; i++)
 		{
 			prefix = input.substring(0, i); 
@@ -66,7 +66,7 @@ class Solution
 					output.add(prefix);
 					return output;
 				}	
-                
+
 				suffix = input.substring(i, n); 			
 				List<String> currOutput = recur(suffix);
 				for(String curr : currOutput)
@@ -75,8 +75,8 @@ class Solution
 				}
 			}
 		}
-        
-        map.put(input, output);
+
+		map.put(input, output);
 		return output;
 	}
 }
