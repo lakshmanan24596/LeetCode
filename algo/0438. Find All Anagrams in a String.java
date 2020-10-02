@@ -42,8 +42,8 @@ class Solution
         char[] sKey = new char[26];     
         for(int i = 0; i < pLength; i++)  
         {
-        	pKey[p.charAt(i) - 'a']++; 
-        	sKey[s.charAt(i) - 'a']++;
+            pKey[p.charAt(i) - 'a']++; 
+            sKey[s.charAt(i) - 'a']++;
         }
         if(Arrays.equals(sKey, pKey)) 
         {
@@ -53,8 +53,8 @@ class Solution
         int iterationSize = sLength - pLength + 1;
         for(int i = 1; i < iterationSize; i++)
         {
-        	sKey[s.charAt(i - 1) - 'a'] -= 1; // Add current character to current window
-        	sKey[s.charAt(i + pLength - 1) - 'a'] += 1; // Remove the first character of previous window
+            sKey[s.charAt(i - 1) - 'a'] -= 1; // Add current character to current window
+            sKey[s.charAt(i + pLength - 1) - 'a'] += 1; // Remove the first character of previous window
             if(Arrays.equals(sKey, pKey)) // Main logic
             {
                 output.add(i);
