@@ -23,42 +23,45 @@ Output: false
 class Solution 
 {
     Set<String> wordDictSet;
-    Set<String> DP;
+    HashMap<String, Boolean> map;
     
     public boolean wordBreak(String s, List<String> wordDict) 
     {
-        if(s == null) {
-            return false;
-        } 
-        if(s.equals("")) {
-            return true;
-        }
-        
         wordDictSet = new HashSet<String>(wordDict);
-        DP = new HashSet<String>();
+        map = new HashMap<String, Boolean>();
         return recur(s);
     }
     
     public boolean recur(String input)
-    {   
-        if(DP.contains(input)) {
-            return false;
+    {
+        if(map.containsKey(input)) {
+            return map.get(input);
         }
         
-        String prefix;
+        String prefix, suffix;
         int n = input.length();
+        
         for(int i = 1; i <= n; i++) 
         {
             prefix = input.substring(0, i);
-            if(wordDictSet.contains(prefix))                        // prefix
-            {                      
-                if(i == n || recur(input.substring(i, n))) {        // suffix
+            if(wordDictSet.contains(prefix))
+            {    
+                if(i == n) 
+                {
+                    map.put(input, true);
+                    return true;
+                }
+                
+                suffix = input.substring(i, n);
+                if(recur(suffix))
+                { 
+                    map.put(input, true);
                     return true;
                 }
             }
         }
         
-        DP.add(input);  // DP contains inputs which are false
+        map.put(input, false);
         return false;
     }
 }
