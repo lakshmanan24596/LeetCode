@@ -17,9 +17,15 @@ The order of your output does not matter.
 
 class Solution 
 {
+    /*
+        1) O(n*log n) --> using sorting of either entire list of string or sort char array of single string
+        2) O(n) --> String.valueOf(array with count of each char)
+        3) O(n) --> hashing of the string can be a key
+    */
+    
     public List<List<String>> groupAnagrams(String[] strs)  // Time: O(nk)
     {     
-        int[] primeArr = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,101};
+        int[] primeArr = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,101}; // size = 26
         
         Map<Long,List<String>> map = new HashMap<Long,List<String>>();  // key: hashCode, value: list of Strings
         int length = strs.length;
@@ -35,10 +41,11 @@ class Solution
             }
             
             List<String> val = map.get(hashCode);
-            if(val == null) val = new ArrayList<String>();
-            
+            if(val == null) {
+                val = new ArrayList<String>();
+                map.put(hashCode, val);
+            }
             val.add(strs[i]);
-            map.put(hashCode, val);
         }
         
         List<List<String>> output = new ArrayList<List<String>>();

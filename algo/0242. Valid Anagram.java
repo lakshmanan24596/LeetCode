@@ -37,8 +37,7 @@ class Solution
         for(int i = 0; i < tLength; i++)
         {
             index = t.charAt(i) - 'a';
-            if(hashArr[index] == 0) 
-            {
+            if(hashArr[index] == 0) {
                 return false;
             }
             hashArr[index]--;
