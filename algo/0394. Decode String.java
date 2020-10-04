@@ -61,7 +61,7 @@ class Solution
                 String subOutput = decodeString(input.substring(i+2, endIndex)); // recursion of substring
                 for(int j = 0; j < count; j++) 
                 {
-                	 output = output.append(subOutput);
+                    output = output.append(subOutput);
                 }
                 i = endIndex; // substring got processed 
             }
