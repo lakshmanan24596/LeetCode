@@ -40,9 +40,11 @@ class Solution
         }); 
         
         /*
-        k is only determined by people with equal or larger height, so makes sense to insert in non-increasing order of height. Because when we insert some person with height h and count k, we know that we have found its correct position relative to people with equal and larger height. And when we later insert other people with equal or smaller height, we know that it will not affect this relative position. So the answer is right after we insert all people.
+        k is only determined by people with equal or larger height, so makes sense to insert in non-increasing order of height. 
+        Because when we insert some person with height h and count k, we know that we have found its correct position relative to people with equal and larger height. 
+        And when we later insert other people with equal or smaller height, we know that it will not affect this relative position. 
+        So the answer is right after we insert all people.
         */
-        
         
         //LinkedList<int[]> list = new LinkedList<int[]>();  // linkedlist is theoratically faster than arraylist for insert in random middle index.
         ArrayList<int[]> list = new ArrayList<int[]>(); 
