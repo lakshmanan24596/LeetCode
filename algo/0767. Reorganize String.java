@@ -16,7 +16,12 @@ S will consist of lowercase letters and have length in range [1, 500].
 
 class Solution 
 {
-    public String reorganizeString(String S) 
+    /*
+        Greedy + maxHeap: Time = N * log N and Space = N
+        Without priorityQueue: Time = N, Space = 26 --> https://leetcode.com/problems/reorganize-string/discuss/232469/Java-No-Sort-O(N)-0ms-beat-100
+    */
+    
+    public String reorganizeString(String S)    
     {
         if(S == null || S.length() <= 1) {
             return S;
@@ -34,7 +39,7 @@ class Solution
         
         PriorityQueue<Node> pq = new PriorityQueue<Node>(new Comparator<Node>() {
             public int compare(Node a, Node b) {
-                return b.count - a.count;	// max heap (descending order)
+                return b.count - a.count;   // max heap (descending order)
             }
         });
         
@@ -59,10 +64,10 @@ class Solution
             }
             
             if(--first.count > 0) {
-            	pq.add(first);
+                pq.add(first);
             }
             if(second != null && --second.count > 0) {
-            	pq.add(second);
+                pq.add(second);
             }
         }
         return sb.toString();
@@ -70,11 +75,11 @@ class Solution
     
     class Node
     {
-    	char ch;
-    	int count;
-    	Node(char ch, int count) {
-    		this.ch = ch;
-    		this.count = count;
-    	}
+        char ch;
+        int count;
+        Node(char ch, int count) {
+            this.ch = ch;
+            this.count = count;
+        }
     }
 }
