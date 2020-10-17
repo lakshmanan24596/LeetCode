@@ -54,8 +54,10 @@ class Solution
 }
 */
 
+
 /*
-Divide and conquer: Time = n^2
+Divide and conquer: Time = n^2 because the split may not occur in the mid position. It can be skewed type also which is O(n^2)
+Example for this case is, s = "abcdefgh" and k = 2.
 
 class Solution 
 {    
