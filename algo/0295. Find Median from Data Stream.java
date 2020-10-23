@@ -75,6 +75,8 @@ class MedianFinder
             return smallMaxHeap.peek(); // because either both size will be equal or smallMaxHeap > largeMinHeap
         }
     }
+    
+    /* Solution to follow up: https://leetcode.com/problems/find-median-from-data-stream/discuss/275207/Solutions-to-follow-ups/651523 */
 }
 
 /**
