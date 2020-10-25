@@ -57,7 +57,6 @@ class Solution
         stack.push(curr);
         TreeNode maxNode = curr;
         
-        
         for(int i = 1; i < nums.length; i++)
         {
             curr = new TreeNode(nums[i]);
