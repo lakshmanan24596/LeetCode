@@ -82,6 +82,7 @@ class Solution
             map.put(val, map.getOrDefault(val, 0) + 1); 
         }
         
+        // main logic --> convert hashmap to array --> array index is hashmap value and array value is hashmap key
         int[] freqArr = new int[arr.length + 1];
         for(int value : map.values()) {
             freqArr[value]++;   // use array index as freqValue
