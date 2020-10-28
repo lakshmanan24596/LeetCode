@@ -51,6 +51,7 @@ class Solution
             For finding the index of 10 we can use linear search O(n^2) or binary search O(n^logn)
         2) O(n):
             Using -inf and +inf range.
+            (Using stack also it is possible. Refer problem 654 - maximum binary tree)
     */
     
     int preorderIndex;
