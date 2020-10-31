@@ -72,12 +72,12 @@ class Solution
 
 class Solution 
 {
-	public int minFallingPathSum(int[][] A) 
-	{
-		int size = A.length;
+    public int minFallingPathSum(int[][] A) 
+    {
+        int size = A.length;
         int reqRow, reqCol;
-		int[] smallest;
-        
+        int[] smallest;
+
         for(int row = 1; row < size; row++)     // start from row = 1 because (DP of firstrow = A of firstRow) and no changes in it
         {
             smallest = findSmallestMinIndex(A, size, row-1);    // main logic: find two smallest value index in prev row of DP array
@@ -89,34 +89,34 @@ class Solution
             }
         }
 
-		int minSum = Integer.MAX_VALUE;
-		for(int i = 0; i < size; i++) {
+        int minSum = Integer.MAX_VALUE;
+        for(int i = 0; i < size; i++) {
             minSum = Math.min(minSum, A[size-1][i]);    // output is minValue present in last row
-		}
-		return minSum;
-	}
-	
-	public int[] findSmallestMinIndex(int[][] A, int size, int row)
-	{
-		int firstMinIndex, secondMinIndex; 	// Find the 2 minimum value index in the row.
-		
-		if(A[row][0] < A[row][1]) {
+        }
+        return minSum;
+    }
+
+    public int[] findSmallestMinIndex(int[][] A, int size, int row)
+    {
+        int firstMinIndex, secondMinIndex; 	// Find the 2 minimum value index in the row.
+
+        if(A[row][0] < A[row][1]) {
             firstMinIndex = 0;
             secondMinIndex = 1;
-		} else {
+        } else {
             firstMinIndex = 1;
             secondMinIndex = 0;
-		}
-		for(int i = 2; i < size; i++) 
-		{
-			if(A[row][i] < A[row][firstMinIndex]) {
+        }
+        for(int i = 2; i < size; i++) 
+        {
+            if(A[row][i] < A[row][firstMinIndex]) {
                 secondMinIndex = firstMinIndex;
                 firstMinIndex = i;
-			} 
-			else if(A[row][i] < A[row][secondMinIndex]) {
+            } 
+            else if(A[row][i] < A[row][secondMinIndex]) {
                 secondMinIndex = i;
-			}
-		}
-		return new int[] {firstMinIndex, secondMinIndex};
-	}
+            }
+        }
+        return new int[] {firstMinIndex, secondMinIndex};
+    }
 }
