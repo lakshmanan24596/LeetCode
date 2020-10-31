@@ -84,7 +84,7 @@ class Solution
             for(int col = 0; col < size; col++) 
             {
                 reqRow = row - 1;
-                reqCol = (smallest[0] != col) ? smallest[0] : smallest[1];    // main logic
+                reqCol = (smallest[0] != col) ? smallest[0] : smallest[1];    // main logic: use firstMinIndex or secondMinIndex
                 A[row][col] += A[reqRow][reqCol];
             }
         }
