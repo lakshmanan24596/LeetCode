@@ -117,8 +117,8 @@ class Solution
         {
             remainder = arrVal % k;
             if(remainder < 0) {
-        		      remainder += k;     // handle negative number
-        	   }
+                remainder += k;     // handle negative number
+            }
             remainderFreq[remainder]++;
         }
         
@@ -134,3 +134,4 @@ class Solution
         return true;
     }
 }
+
