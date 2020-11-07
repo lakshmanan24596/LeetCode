@@ -28,42 +28,45 @@ A solution set is:
 
 class Solution 
 {
-//     Recursion    --> O(candiates.length ^ target)
-//     Memorization --> O(candiates.length * target) 
-//     (target involved, because one candidate can be used many times)
+    /*
+        Recursion    --> O(n ^ target)
+        Memorization --> O(n * target) 
+        (target involved, because one candidate can be used many times)
+    */
     
-//     int[] candidates;
-//     List<Integer> currOutput = new ArrayList<Integer>();
-//     List<List<Integer>> output = new ArrayList<List<Integer>>();
+    /*
+    int[] candidates;
+    List<Integer> currOutput = new ArrayList<Integer>();
+    List<List<Integer>> output = new ArrayList<List<Integer>>();
   
-//     public List<List<Integer>> combinationSum(int[] candidates, int target) 
-//     {
-//         this.candidates = candidates;
-//         //Array.sort(candidates);                               // no need sorting
+    public List<List<Integer>> combinationSum(int[] candidates, int target) 
+    {
+        this.candidates = candidates;
+        //Array.sort(candidates);                               // no need sorting
 
-//         recur(target, 0);
-//         return output;
-//     }
+        recur(target, 0);
+        return output;
+    }
    
-//     public void recur(int target, int startIndex)
-//     {
-//         if(target == 0)
-//         {        
-//             output.add(new ArrayList<Integer>(currOutput));
-//             return;
-//         }
+    public void recur(int target, int startIndex)
+    {
+        if(target == 0)
+        {       
+            output.add(new ArrayList<Integer>(currOutput));
+            return;
+        }
       
-//         for(int i=startIndex; i<candidates.length; i++)         // i = startIndex --> because output should be unique
-//         {
-//             if(candidates[i] <= target)
-//             {
-//                 currOutput.add(candidates[i]);                  // pre-order
-//                 recur(target-candidates[i], i);                 // i --> next startIndex
-//                 currOutput.remove(currOutput.size() - 1);
-//             }
-//         }
-//     }
-    
+        for(int i=startIndex; i<candidates.length; i++)         // i = startIndex --> because output should be unique
+        {
+            if(candidates[i] <= target)
+            {
+                currOutput.add(candidates[i]);                  // pre-order
+                recur(target-candidates[i], i);                 // i --> next startIndex
+                currOutput.remove(currOutput.size() - 1);
+            }
+        }
+    }
+    */
     
     // DP memorization
     int[] candidates;
@@ -99,7 +102,7 @@ class Solution
                     {
                         list = new ArrayList<Integer>(list);                        // clone it, because we are storing the reference in DP
                         list.add(candidates[i]);                
-                        output.add(list);                                           // post-order
+                        output.add(list);                                           // post order
                     }
                 }
             }

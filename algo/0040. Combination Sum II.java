@@ -26,15 +26,17 @@ A solution set is:
 ]
 */
 
+/*
+    1) recursion : Time ==> O(n * n)  (target not involved because 1 element can be used only once in output)
+    2) DP        : Time --> O(n * target)
+    Similar to sumOfSubset, coinChange problem
+*/
+
 class Solution 
 {
     int[] candidates;
     List<List<Integer>> output = new ArrayList<List<Integer>>();
     List<Integer> currOutput = new ArrayList<Integer>();
-        
-    // 1) recursion : Time ==> O(candiates.length ^ candidates.length)  = n^n  (target not involved because 1 element can be used only once in output)
-    // 2) DP        : Time --> O(candidates.length * target)            = n*m
-    // Similar to sumOfSubset, coinChange problem
     
     public List<List<Integer>> combinationSum2(int[] candidates, int target) 
     {
@@ -64,63 +66,66 @@ class Solution
     }
 }
 
-// addition changes comparing problem 40 and 39
-    // 1. Arrays.sort(candidates);
-    // 2. i==startIndex || candidates[i] != candidates[i-1]
-    // 3. i+1 --> (startIndex variable)
+/*
+addition changes comparing problem 40 and 39
+    1. Arrays.sort(candidates);
+    2. i==startIndex || candidates[i] != candidates[i-1]
+    3. i+1 --> (startIndex variable)
+*/
 
-
+/*
 // DP solution
 
-// class Solution
-// {
-//     public List<List<Integer>> combinationSum2(int[] candidates, int target)
-//     {
-//         int length = candidates.length;       
-//         Arrays.sort(candidates);
-//         Set<List<Integer>>[][] DP = new HashSet[length][target];       
-//         Set<List<Integer>> currSet;
-//         int x, y;
+class Solution
+{
+    public List<List<Integer>> combinationSum2(int[] candidates, int target)
+    {
+        int length = candidates.length;       
+        Arrays.sort(candidates);
+        Set<List<Integer>>[][] DP = new HashSet[length][target];       
+        Set<List<Integer>> currSet;
+        int x, y;
         
-//         for(int i=0; i<length; i++)
-//         {
-//             for(int j=0; j<target; j++)
-//             {
-//                 x = candidates[i];   // curr candidate
-//                 y = j+1;         // curr target              
-//                 currSet = null;
+        for(int i=0; i<length; i++)
+        {
+            for(int j=0; j<target; j++)
+            {
+                x = candidates[i];  // curr candidate
+                y = j+1;            // curr target              
+                currSet = null;
                 
-//                 if(x == y)
-//                 {
-//                  currSet = new HashSet<List<Integer>>();                 
-//                  List<Integer> presentCellList = new ArrayList<Integer>();
-//                  presentCellList.add(x);
-//                  currSet.add(presentCellList);
-//                 }       
-//                 if(i != 0 && DP[i-1][j] != null)                     // top  (i-1 --> because move top 1 position)
-//                 {
-//                  currSet = (currSet != null) ? currSet : new HashSet<List<Integer>>();                   
-//                  for(List<Integer> topList : DP[i-1][j])
-//                  {
-//                      topList = new ArrayList<Integer>(topList);
-//                      currSet.add(topList);
-//                  }
-//                 }
-//                 if(i != 0 && y-x-1 >= 0 && DP[i-1][y-x-1] != null)  // top-left (y-x-1 --> because move left (target-candidate))
-//                 {
-//                  currSet = (currSet != null) ? currSet : new HashSet<List<Integer>>();                                   
-//                  for(List<Integer> topLeftList : DP[i-1][y-x-1])
-//                  {
-//                      topLeftList = new ArrayList<Integer>(topLeftList);
-//                      topLeftList.add(x);
-//                      currSet.add(topLeftList);
-//                  }
-//                 }
+                if(x == y)
+                {
+                    currSet = new HashSet<List<Integer>>();                 
+                    List<Integer> presentCellList = new ArrayList<Integer>();
+                    presentCellList.add(x);
+                    currSet.add(presentCellList);
+                }       
+                if(i != 0 && DP[i-1][j] != null)                    // top  (i-1 --> because move top 1 position)
+                {
+                    currSet = (currSet != null) ? currSet : new HashSet<List<Integer>>();                   
+                    for(List<Integer> topList : DP[i-1][j])
+                    {
+                        topList = new ArrayList<Integer>(topList);
+                        currSet.add(topList);
+                    }
+                }
+                if(i != 0 && y-x-1 >= 0 && DP[i-1][y-x-1] != null)  // top-left (y-x-1 --> because move left (target-candidate))
+                {
+                    currSet = (currSet != null) ? currSet : new HashSet<List<Integer>>();                                   
+                    for(List<Integer> topLeftList : DP[i-1][y-x-1])
+                    {
+                        topLeftList = new ArrayList<Integer>(topLeftList);
+                        topLeftList.add(x);
+                        currSet.add(topLeftList);
+                    }
+                }
 
-//                 DP[i][j] = currSet;
-//             }
-//         }
+                DP[i][j] = currSet;
+            }
+        }
 
-//         return ((DP[length-1][target-1] == null)) ? new ArrayList<List<Integer>>() : new ArrayList<List<Integer>>(DP[length-1][target-1]);
-//     }
-// }
+        return ((DP[length-1][target-1] == null)) ? new ArrayList<List<Integer>>() : new ArrayList<List<Integer>>(DP[length-1][target-1]);
+    }
+}
+*/
