@@ -43,6 +43,27 @@ Try to solve it in O(n log k) time and O(n) extra space.
     );
 */
 
+/*
+    1) hashmap --> logic: create a map with string, freq. 
+                   Sort the map by values. 
+                   Time: n*logn
+                   
+    2) hashmap + minheap --> logic: create a map with string, freq.
+                             store map entry in minheap with size k
+                             same as 347. Top K Frequent Elements
+                             Time: n*logk 
+                             
+    PriorityQueue<Map.Entry<String,Integer>> pqueue = new PriorityQueue<Map.Entry<String,Integer>>(new Comparator<Map.Entry<String,Integer>>() {
+        public int compare(Map.Entry<String,Integer> entry1, Map.Entry<String,Integer> entry2) {
+            return (entry1.getValue() - entry2.getValue());   // min heap
+        }
+    });
+    
+    PriorityQueue<String> heap = new PriorityQueue<String>(
+        (w1, w2) -> map.get(w1).equals(map.get(w2)) ? w2.compareTo(w1) : map.get(w1) - map.get(w2) 
+    );
+*/
+
 class Solution 
 {
    public List<String> topKFrequent(String[] words, int k)
@@ -98,22 +119,22 @@ class Solution
         
         for(Map.Entry<String, Integer> entry : map.entrySet())
         {
-            if(heapCurrSize < k)	// first K elements
+            if(heapCurrSize < k)                              // first K elements
             {
-            	heap[heapCurrSize] = entry;
-            	int i = heapCurrSize;
-            	while(i != 0 && heap[i].getValue() < heap[getParent(i)].getValue()) {
-            		swap(i, getParent(i));
-            		i = getParent(i);
-            	}
-            	heapCurrSize++;
+              heap[heapCurrSize] = entry;
+              int i = heapCurrSize;
+              while(i != 0 && heap[i].getValue() < heap[getParent(i)].getValue()) {
+                swap(i, getParent(i));
+                i = getParent(i);
+              }
+              heapCurrSize++;
             }
-            else					// remaining elements
+            else                                      // remaining elements
             {
-            	if(entry.getValue() > heap[0].getValue()) {     // main logic
-            		heap[0] = entry;
-            		minHeapify(0, heapCurrSize);    // time: log k
-            	}
+              if(entry.getValue() > heap[0].getValue()) {     // main logic
+                heap[0] = entry;
+                minHeapify(0, heapCurrSize);                // time: log k
+              }
             }
         }
         
@@ -151,13 +172,13 @@ class Solution
     }
     
     public int getParent(int i) {
-    	return (i - 1) / 2;
+      return (i - 1) / 2;
     }
     public int getLeft(int i) {
-    	return (2 * i) + 1;
+      return (2 * i) + 1;
     }
     public int getRight(int i) {
-    	return (2 * i) + 2;
+      return (2 * i) + 2;
     }
 }
 */
