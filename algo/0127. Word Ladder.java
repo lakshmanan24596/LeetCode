@@ -29,34 +29,37 @@ Explanation: The endWord "cog" is not in wordList,
              therefore no possible transformation.
 */
 
+
+/*
+    Brute force ::: 
+         time = (N^2 * M) and space = 1
+         without preprocessing, we will directly do BFS
+    
+    BFS :::
+         step 1 ::: preprocess all words = time = N*M*M, space = N*M*M
+         step 2 ::: do BFS traversal by incrementing level = time = N*M*M, space = N*M
+         Total  ::: Time: N*M*M, Space: N*M*M
+*/
 class Solution 
 {          
-    // Brute force ::: 
-    //      time = (N^2 * M) and space = 1
-    //      without preprocessing, we will directly do BFS
-    
-    // BFS :::
-    //      step 1 ::: preprocess all words = time = N*M, space = N*M
-    //      step 2 ::: do BFS traversal by incrementing level = time = 2N * M, space = 2*N
-    
     public int ladderLength(String beginWord, String endWord, List<String> wordList) 
     {
-        if (!wordList.contains(endWord)) {                         // No need to pre-process.. just return 0
+        if (!wordList.contains(endWord)) {
             return 0;
         }
         
         // logic --> key = h*t and value = hit, hot,...
-        Map<String, List<String>> map = new HashMap<String, List<String>>();   // N*M space
-        
+        Map<String, List<String>> map = new HashMap<String, List<String>>();   // N*M*M space
         String star = "*";
         wordList.add(beginWord);
         
-        // Time for preprocessing is O(N*M)
+        // Time for preprocessing is O(N*M*M)
         for(String currWord : wordList)                             // N
         {
             for(int i = 0; i < currWord.length(); i++)              // M
             {
-                String newWord = currWord.substring(0, i) + star + currWord.substring(i+1, currWord.length());                
+                String newWord = currWord.substring(0, i) + star + currWord.substring(i+1, currWord.length());  // M
+                
                 List<String> list = map.get(newWord);
                 if(list == null)
                 {
@@ -67,18 +70,18 @@ class Solution
             }
         }
         
-        Set<String> visited = new HashSet<String>();                // N space
+        Set<String> visited = new HashSet<String>();                // N*M space
         visited.add(beginWord);
-        Queue<String> queue = new LinkedList<String>();             // N sapce
+        Queue<String> queue = new LinkedList<String>();             // N*M sapce
         queue.add(beginWord);
         int level = 0;
 
-        while(!queue.isEmpty())                                     // 2N            
+        while(!queue.isEmpty())                                     // N            
         {
             level++;
             int size = queue.size();
 
-            for(int index = 0; index < size; index++)
+            while(size-- > 0)
             {
                 String currWord = queue.remove();
                 if(currWord.equals(endWord))
@@ -86,9 +89,9 @@ class Solution
 
                 for(int i = 0; i < currWord.length(); i++)          // M    
                 {
-                    String newWord = currWord.substring(0, i) + star + currWord.substring(i+1, currWord.length());               
+                    String newWord = currWord.substring(0, i) + star + currWord.substring(i+1, currWord.length());           
                     List<String> list = map.get(newWord);
-                    for(String nextWord : list)
+                    for(String nextWord : list)                     // M
                     {
                         if(!visited.contains(nextWord))
                         {
@@ -103,83 +106,84 @@ class Solution
     }
 }
 
+/*
+Bidirectional BFS:
+     one bfs from beginWord and one bfs from endWord
+     if we visit the same node processed in other bfs, then we found the answer
 
-// Bidirectional BFS
-//      one bfs from beginWord and one bfs from endWord
-//      if we visit the same node processed in other bfs, then we found the answer
+class Solution {
 
-// class Solution {
-
-//   private int L = 0;
-//   private HashMap<String, ArrayList<String>> allComboDict = new HashMap<String, ArrayList<String>>();
+  private int L = 0;
+  private HashMap<String, ArrayList<String>> allComboDict = new HashMap<String, ArrayList<String>>();
     
-//   public int ladderLength(String beginWord, String endWord, List<String> wordList) 
-//   {
-//     if (!wordList.contains(endWord)) {
-//       return 0;
-//     }
-//     this.L = beginWord.length();
+  public int ladderLength(String beginWord, String endWord, List<String> wordList) 
+  {
+    if (!wordList.contains(endWord)) {
+      return 0;
+    }
+    this.L = beginWord.length();
 
-//     wordList.forEach(
-//         word -> {
-//           for (int i = 0; i < L; i++) {
-//             String newWord = word.substring(0, i) + '*' + word.substring(i + 1, L);
-//             ArrayList<String> transformations =
-//                 this.allComboDict.getOrDefault(newWord, new ArrayList<String>());
-//             transformations.add(word);
-//             this.allComboDict.put(newWord, transformations);
-//           }
-//         });
+    wordList.forEach(
+        word -> {
+          for (int i = 0; i < L; i++) {
+            String newWord = word.substring(0, i) + '*' + word.substring(i + 1, L);
+            ArrayList<String> transformations =
+                this.allComboDict.getOrDefault(newWord, new ArrayList<String>());
+            transformations.add(word);
+            this.allComboDict.put(newWord, transformations);
+          }
+        });
 
-//     Queue<Pair<String, Integer>> Q_begin = new LinkedList<Pair<String, Integer>>();
-//     Queue<Pair<String, Integer>> Q_end = new LinkedList<Pair<String, Integer>>();
-//     Q_begin.add(new Pair(beginWord, 1));
-//     Q_end.add(new Pair(endWord, 1));
+    Queue<Pair<String, Integer>> Q_begin = new LinkedList<Pair<String, Integer>>();
+    Queue<Pair<String, Integer>> Q_end = new LinkedList<Pair<String, Integer>>();
+    Q_begin.add(new Pair(beginWord, 1));
+    Q_end.add(new Pair(endWord, 1));
 
-//     HashMap<String, Integer> visitedBegin = new HashMap<String, Integer>();
-//     HashMap<String, Integer> visitedEnd = new HashMap<String, Integer>();
-//     visitedBegin.put(beginWord, 1);
-//     visitedEnd.put(endWord, 1);
+    HashMap<String, Integer> visitedBegin = new HashMap<String, Integer>();
+    HashMap<String, Integer> visitedEnd = new HashMap<String, Integer>();
+    visitedBegin.put(beginWord, 1);
+    visitedEnd.put(endWord, 1);
 
-//     while (!Q_begin.isEmpty() && !Q_end.isEmpty()) {
+    while (!Q_begin.isEmpty() && !Q_end.isEmpty()) {
         
-//       int ans = visitWordNode(Q_begin, visitedBegin, visitedEnd);
-//       if (ans > -1) {
-//         return ans;
-//       }
+      int ans = visitWordNode(Q_begin, visitedBegin, visitedEnd);
+      if (ans > -1) {
+        return ans;
+      }
 
-//       ans = visitWordNode(Q_end, visitedEnd, visitedBegin);
-//       if (ans > -1) {
-//         return ans;
-//       }
-//     }
+      ans = visitWordNode(Q_end, visitedEnd, visitedBegin);
+      if (ans > -1) {
+        return ans;
+      }
+    }
 
-//     return 0;
-//   }
+    return 0;
+  }
     
-//   private int visitWordNode(
-//       Queue<Pair<String, Integer>> Q,
-//       HashMap<String, Integer> visited,
-//       HashMap<String, Integer> othersVisited) 
-//   {
-//     Pair<String, Integer> node = Q.remove();
-//     String word = node.getKey();
-//     int level = node.getValue();
+  private int visitWordNode(
+      Queue<Pair<String, Integer>> Q,
+      HashMap<String, Integer> visited,
+      HashMap<String, Integer> othersVisited) 
+  {
+    Pair<String, Integer> node = Q.remove();
+    String word = node.getKey();
+    int level = node.getValue();
 
-//     for (int i = 0; i < this.L; i++) {
-//       String newWord = word.substring(0, i) + '*' + word.substring(i + 1, L);
+    for (int i = 0; i < this.L; i++) {
+      String newWord = word.substring(0, i) + '*' + word.substring(i + 1, L);
 
-//       for (String adjacentWord : this.allComboDict.getOrDefault(newWord, new ArrayList<String>())) {
-//         if (othersVisited.containsKey(adjacentWord)) {                      // MAIN LOGIC
-//           return level + othersVisited.get(adjacentWord);
-//         }
+      for (String adjacentWord : this.allComboDict.getOrDefault(newWord, new ArrayList<String>())) {
+        if (othersVisited.containsKey(adjacentWord)) {                      // MAIN LOGIC
+          return level + othersVisited.get(adjacentWord);
+        }
 
-//         if (!visited.containsKey(adjacentWord)) {
-//           visited.put(adjacentWord, level + 1);
-//           Q.add(new Pair(adjacentWord, level + 1));
-//         }
-//       }
-//     }
-//     return -1;
-//   }
-// }
+        if (!visited.containsKey(adjacentWord)) {
+          visited.put(adjacentWord, level + 1);
+          Q.add(new Pair(adjacentWord, level + 1));
+        }
+      }
+    }
+    return -1;
+  }
+}
+*/
