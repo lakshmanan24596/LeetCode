@@ -72,7 +72,7 @@ class Solution
                 freq.put(i + 2, freq.get(i + 2) - 1);
             } 
             else {
-                return false;
+                return false;   // not able to add in existing sequence and also not able to form new sequence
             }
         }
         
