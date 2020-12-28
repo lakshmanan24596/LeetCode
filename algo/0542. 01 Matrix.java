@@ -85,7 +85,7 @@ class Solution
 */
 class Solution
 {
-    public int[][] updateMatrix(int[][] matrix)     // Time: r*c*2, Space: 1
+    public int[][] updateMatrix(int[][] matrix)     // Time: r*c*4, Space: 1
     {
         int row = matrix.length;
         int col = matrix[0].length;
