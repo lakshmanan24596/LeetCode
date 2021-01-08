@@ -144,7 +144,7 @@ class Solution
 
 
 /*
-    n time, 1 space
+    3n time, 1 space
     for each point i, we find the minimum (j) and maximum (k) boundaries 
     j and k are always moving forward, so time = n
     https://leetcode.com/problems/ways-to-split-array-into-three-subarrays/discuss/999257/C%2B%2BJavaPython-O(n)-with-picture  
@@ -188,7 +188,7 @@ class Solution
         }
         
         int j = 0, k = 0, output = 0;
-        for (int i = 0; i < n - 2; i++) 
+        for (int i = 0; i < n - 2; i++)     // Time: 3n
         {
             while (j <= i || (j < n - 1 && nums[j] - nums[i] < nums[i])) {
                 j++;
