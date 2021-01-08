@@ -45,7 +45,7 @@ class Solution
     int n;
     int[] A, B;
     
-    public int minSwap(int[] A, int[] B) 
+    public int minSwap(int[] A, int[] B)     // similar to 926. Flip String to Monotone Increasing
     {
         this.A = A; 
         this.B = B;
