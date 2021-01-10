@@ -64,10 +64,10 @@ class Solution
     
     public Node findParent(Node node)       // path compression
     {
-        if(node.parent != node) {
-            node.parent = findParent(node.parent);
+        if(node.parent == node) {
+            return node.parent;
         }
-        return node.parent;
+        return node.parent = findParent(node.parent);
     }
     
     public void union(Node n1, Node n2)     // union by rank
