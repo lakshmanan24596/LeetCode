@@ -61,24 +61,23 @@ class Solution {
         Stack<Integer> stack = new Stack<Integer>();
         int i, top, currResult, result = 0;
         for (i = 0; i < arr.length; ) {
-			if (stack.isEmpty() || arr[i] >= arr[stack.peek()]) {   // keep the stack in ascending order
+            if (stack.isEmpty() || arr[i] >= arr[stack.peek()]) {   // keep the stack in ascending order
                 stack.push(i++);
-			} else {
+            } else {
                 top = stack.pop();
                 currResult = arr[top] * (stack.isEmpty() ? i : i-1 - stack.peek()); // i-1 is right bar and stack.peek is left bar
-				result = Math.max(result, currResult);
-			}
-		}
+                result = Math.max(result, currResult);
+            }
+        }
         while(!stack.isEmpty()) {
             top = stack.pop();
             currResult = arr[top] * (stack.isEmpty() ? i : i-1 - stack.peek());
-			result = Math.max(result, currResult);
+            result = Math.max(result, currResult);
         }
-		return result;
+        return result; 
     }
 }
 */
-
 
 /*
     https://leetcode.com/problems/largest-submatrix-with-rearrangements/discuss/1020710/C%2B%2B-Clean-and-Clear-With-Intuitive-Pictures-O(m-*-n-*-logn)
