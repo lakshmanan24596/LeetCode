@@ -42,10 +42,11 @@ A[i] != A[j] for all i != j
         queue.poll() is used to avoid NPE
     Time: n * logn
     Space: n
+    Technique: Simulation
 */
 class Solution {
     public int[] deckRevealedIncreasing(int[] deck) {
-        Arrays.sort(deck);
+        Arrays.sort(deck);                  // because the cards should be revealed in increasing order.
         int n = deck.length;
         Queue<Integer> queue = new LinkedList<Integer>();
         for(int i = 0; i < n; i++) {
