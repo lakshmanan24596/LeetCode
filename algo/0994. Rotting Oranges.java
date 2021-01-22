@@ -52,7 +52,7 @@ class Solution {
             queueSize = queue.size();
             while (queueSize-- > 0) {
                 curr = queue.remove();
-                currX = curr / n;               // formula to convert 1D to 2D --> [x / colSize][x % colSize]
+                currX = curr / n;               // formula to convert 1D to 2D --> [x / colSize][y % colSize]
                 currY = curr % n;
                 for (int i = 0; i < 4; i++) {
                     nextX = currX + dir[i];
