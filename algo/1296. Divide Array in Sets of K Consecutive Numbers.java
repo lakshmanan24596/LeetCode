@@ -44,7 +44,6 @@ class Solution {
             return false;
         }
         TreeMap<Integer, Integer> freqTreeMap = new TreeMap<Integer, Integer>();
-        Map.Entry<Integer, Integer> curr;
         int start, freq;
         int windowSize = n / k;
         
