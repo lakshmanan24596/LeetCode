@@ -1,5 +1,11 @@
 /*
-// Time: n*logn + n*logn ==> n*logn
+    Proper solution: 
+    Refer --> https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers/
+*/
+
+
+/*
+// Time: n*logn + n*n ==> n^2
 class Solution 
 {
     public boolean isNStraightHand(int[] arr, int W)
@@ -32,7 +38,7 @@ class Solution
 */
 
 // logic: same as above logic but instead of pQueue, we will use linked list
-// time: n*logn + n ==> n*logn
+// time: n*logn + n^2 ==> n^2
 class Solution 
 {
     public boolean isNStraightHand(int[] arr, int W)
