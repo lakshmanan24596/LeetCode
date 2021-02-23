@@ -28,9 +28,63 @@ Constraints:
 */
 
 
+/*
+    Logic: create minHeap and maxHeap of size 3
+    Time: n
+    Space: n
+    
+    This logic doesnt work for input 20, 75, 81, 82, 95
+    my code output = 13 (which is 95 - 82)
+    but correct output = 1 (which is 82 - 81)
+*/
+/*
+// WRONG SOLUTION
+
+class Solution {
+    public int minDifference(int[] nums) {
+        int n = nums.length;
+        if (n <= 4) {
+            return 0;
+        }
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>((a, b) -> (b - a));
+        int overallMin = Integer.MAX_VALUE, overallMax = Integer.MIN_VALUE;
+        int tempMin = Integer.MAX_VALUE;                    // min value of elements not present in maxHeap
+        int tempMax = Integer.MIN_VALUE;                    // max value of elements not present in minHeap
+        
+        for (int i = 0; i < n; i++) {
+            overallMin = Math.min(overallMin, nums[i]);
+            overallMax = Math.max(overallMax, nums[i]);
+            
+            if (minHeap.size() < 3) {                       // find largest 3 values using minHeap
+                minHeap.add(nums[i]);
+            } else if (nums[i] > minHeap.peek()) {
+                int peekVal = minHeap.remove();
+                tempMax = Math.max(tempMax, peekVal);
+                minHeap.add(nums[i]);
+            } else {
+                tempMax = Math.max(tempMax, nums[i]);
+            }
+            
+            if (maxHeap.size() < 3) {                       // find smallest 3 values using maxHeap
+                maxHeap.add(nums[i]);
+            } else if (nums[i] < maxHeap.peek()) {
+                int peekVal = maxHeap.remove();
+                tempMin = Math.min(tempMin, peekVal);
+                maxHeap.add(nums[i]);
+            } else {
+                tempMin = Math.min(tempMin, nums[i]);
+            }
+        }
+        return Math.min(tempMax - overallMin, overallMax - tempMin);
+    }
+}
+*/
+
+
 
 /*
-    We have 4 plans:
+    Logic: We have 4 plans:
         kill 3 biggest elements
         kill 2 biggest elements + 1 smallest elements   // main logic
         kill 1 biggest elements + 2 smallest elements   // main logic
@@ -41,10 +95,10 @@ Constraints:
     Space: 1
     https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/discuss/730526/Simple-Greedy-Approach-or-My-screen-recording
     
-    2) Logic: Greedy
+    2) Greedy
     create minHeap and maxHeap of size 3 + 1 = 4
     Time: n * logk, where k = 3 + 1 = 4
-    Space: n 
+    Space: n
 */
 
 class Solution {
