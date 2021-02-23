@@ -67,7 +67,7 @@ Answers within 10-5 of the actual value will be accepted as correct.
     Logic 1: Time: 1, 1, n
     map1 --> store checkin details with key=checkInStation and value is a map with key=id, value=time
     map2 --. store checkout details with key=checkOutStation and value is a map with key=id, value=time
-    getAverageTime --> it needs iteration. time= min(checkin in t)
+    getAverageTime --> it needs iteration
     
     Logic 2: Time: 1, 1, 1
     map1 --> key=(uid), value=(station, time) 
