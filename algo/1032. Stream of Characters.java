@@ -31,6 +31,7 @@ The number of queries is at most 40000.
 /*
     logic: trie
     https://leetcode.com/problems/stream-of-characters/discuss/278769/Java-Trie-Solution
+    similar to https://leetcode.com/problems/palindrome-pairs/
     
     time:
         StreamChecker: words * wordLength

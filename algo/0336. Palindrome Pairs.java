@@ -33,6 +33,7 @@ words[i] consists of lower-case English letters.
     
     2) trie and reverse iteration
         https://leetcode.com/problems/palindrome-pairs/discuss/79195/O(n-*-k2)-java-solution-with-Trie-structure
+        similar to https://leetcode.com/problems/stream-of-characters/
         time: W * WL * WL
         space: min(26 * 26, W * WL)
 */
