@@ -37,7 +37,10 @@ Note: 1 <= N <= 10000
             answer for node1 = (8 - 1) + (6 - 1) = 12
             
     https://leetcode.com/problems/sum-of-distances-in-tree/discuss/130583/C%2B%2BJavaPython-Pre-order-and-Post-order-DFS-O(N)
-    When we move our root from one node to its connected node, one part of nodes get closer, one the other part get further.
+    When we move our root from one node to its connected node, one part of nodes get closer and the other part get further.
+     
+     distance[neigh] = distance[root] - (countArr[neigh]) + (N - countArr[neigh]);
+     when we move from root to neigh, we move 1 distance towards to (countArr[neigh]) nodes and 1 distance away from (N - countArr[neigh]) nodes
 */
 
 class Solution {
@@ -92,9 +95,9 @@ class Solution {
     public void preOrder(int root, int parent) {
         for (int neigh : adjList.get(root)) {
             if (neigh != parent) {
-                int d1 = distance[root] - countArr[neigh];
-                int d2 = N - countArr[neigh];
-                distance[neigh] = d1 + d2;                      // main logic
+                int towards = countArr[neigh];
+                int away = N - countArr[neigh];
+                distance[neigh] = distance[root] - towards + away;      // main logic
                 preOrder(neigh, root);
             }
         }
