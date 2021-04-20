@@ -32,6 +32,10 @@ grid[i][j] is either 'W', 'E', or '0'.
        time: 2*r*c + 2*r*c (because each cell is visited twice in each iteration)
        space: r*c
        
+       or we can also do DP
+       first iteration: check left and top
+       second iteration: check right and bottom (reverse iteration)
+       
     3) same logic as above
         implementation varies: https://leetcode.com/problems/bomb-enemy/solution/
 */
