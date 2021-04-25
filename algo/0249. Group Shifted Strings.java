@@ -38,7 +38,7 @@ strings[i] consists of lowercase English letters.
             hash (bcd) = (c-b) + (d-c) ==> 11 ==> aa
             group same hashvalues into same group
             
-        2) why +26 and &26 are done?
+        2) why +26 and %26 are done?
             az and ba are the same
             hash (az) = (z-a) = 25      = y
             hash (ba) = (a-b) = -1 = 25 = y
