@@ -30,45 +30,94 @@ the answer is guaranteed to fit into signed 32-bit integer
 */
 
 
-/*
-In the below solution, we have used startIndex to avoid duplicates.
-The states of DP are amount and startIndex which makes the space complexity as n * target which is 2D array
-So DP will be less freq used and so time complexity will also increase.
 
+/*
+    Approach-1: 
+        DP states: amount, coinIndex
+        time: O((amount * coins) * coins)
+        space: O(amount * coins)
+*/
+/*
 class Solution 
 {
-    int[] coins, DP;   
+    int[] coins;
+    Integer[][] DP;
     public int change(int amount, int[] coins) 
     {
         this.coins = coins;   
-        this.DP = new int[amount+1];
-        DP[0] = 1;
+        this.DP = new Integer[amount+1][coins.length];
         return dfs(amount, 0);
     }
     
-    public int dfs(int amount, int startIndex) // states: amount, startIndex. So space = n * target
+    public int dfs(int amount, int startIndex)
     {
-        if(DP[amount] != 0) {
-            return DP[amount];
+        if (amount == 0) {
+            return 1;
         }
-        
+        if(DP[amount][startIndex] != null) {
+            return DP[amount][startIndex];
+        }
         int output = 0;
+        
         for(int i = startIndex; i < coins.length; i++) {
             if(coins[i] <= amount) {
                 output += dfs(amount - coins[i], i);
             }
         }
-        return DP[amount] = output;
+        return DP[amount][startIndex] = output;
     }
 }
 */
 
 
-/* 
-    Time: n*target and Space: target 
-    Logic: intercharge both for loops
-    Unbound knapsack: for each coin, we can put as many times as we want.
+/*
+    Approach-2:
+        Logic: same as above solution with optimized time complexity, using 0/1 knapsack approach
+        DP states: amount, coinIndex
+        time: O(amount * coins)
+        space: O(amount * coins)
 */
+class Solution {
+    int[] coins;
+    Integer[][] DP;
+    
+    public int change(int amount, int[] coins) {
+        this.coins = coins;   
+        this.DP = new Integer[amount+1][coins.length];
+        return dfs(amount, 0);
+    }
+    
+    public int dfs(int amount, int startIndex) {
+        if (amount == 0) {
+            return 1;
+        }
+        if (amount < 0 || startIndex >= coins.length) {
+            return 0;
+        }
+        if(DP[amount][startIndex] != null) {
+            return DP[amount][startIndex];
+        }
+        
+        int pick = dfs(amount - coins[startIndex], startIndex);
+        int dontPick = dfs(amount, startIndex + 1);
+            
+        int output = pick + dontPick;
+        return DP[amount][startIndex] = output;
+    }
+}
+
+
+/* 
+    Approach-3:
+        Logic: convert approach-2 to a tabulation space optimized solution
+        time: O(amount * coins)
+        space: O(amount)
+        because currState depends only on prevState of coinIndex
+        
+        Note: dont intercharge both FOR loops
+        Unbound knapsack: for each coin, we can put as many times as we want.
+*/
+/*
 class Solution
 {
     public int change(int amount, int[] coins) 
@@ -84,3 +133,4 @@ class Solution
         return DP[amount];
     }
 }
+*/

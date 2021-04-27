@@ -23,7 +23,11 @@ What limitation we need to add to the question to allow negative numbers?s
 */
 
 
-/*
+
+ /*
+    Note: this is a "permutation" problem and not combination
+    because output has (1,1,2), (1,2,1), (2,1,1) which means that order matters here
+    
     Recursion: time = O(n ^ target) and space = O(target)
     DP: time = O(n * target) and space = O(target)
 */
@@ -38,7 +42,7 @@ class Solution
     {
         this.nums = nums;
         this.DP = new int[target+1];
-        DP[0] = 1;          // base case
+        DP[0] = 1;                                  // base case
         for(int i = 1; i <= target; i++) {
             DP[i] = -1;
         }
@@ -89,9 +93,10 @@ class Solution
 
 /*
     Follow up: If -ve numbers are allowed then infinity combinations are possible.
+    https://leetcode.com/problems/combination-sum-iv/discuss/85041/7-liner-in-Python-and-follow-up-question
     
     The problem with negative numbers is that now the combinations could be potentially of infinite length. 
     Think about nums = [-1, 1] and target = 1. 
-    We can have all sequences of arbitrary length that follow the patterns -1, 1, -1, 1, ..., -1, 1, 1 and 1, -1, 1, -1, ..., 1, -1, 1 (there are also others, of course, just to give an example). 
-    So we should limit the length of the combination sequence, so as to give a bound to the problem.
+    
+    We can have all sequences of arbitrary length that follow the patterns -1, 1, -1, 1, ..., -1, 1, 1 and 1, -1, 1, -1, ..., 1, -1, 1 (there are also others, of course, just to give an example). So we should limit the length of the combination sequence, so as to give a bound to the problem.
 */
