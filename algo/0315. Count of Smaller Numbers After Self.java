@@ -26,12 +26,16 @@ Constraints:
 
 
 /*
-    Time: n*logn
-    Similar to inversion count problem
-    Solution:
-        1) BBST (avl or rbt)
-        2) Merge sort
-        3) Segment tree or Fenwick tree
+    1) Brute force:
+        time: n^2
+        space: 1
+    
+    2) Time: n*logn
+        Similar to inversion count problem - https://www.geeksforgeeks.org/counting-inversions/
+        Solution:
+            1) BBST (avl or rbt)
+            2) Merge sort
+            3) Segment tree or Fenwick tree
 */
 
 
@@ -92,66 +96,65 @@ class Solution {
 
 
 /*
-    merge sort (count inversion) (note 4)
-    https://leetcode.com/problems/count-of-smaller-numbers-after-self/discuss/76583/11ms-JAVA-solution-using-merge-sort-with-explanation
+    Merge sort
+    time: n*logn
+    space: n
+    https://www.geeksforgeeks.org/counting-inversions/
+    
+    Implementation:
+        if right side is strictly smaller, then increment the count
+        else use the count for left side index
 */
 class Solution {
-    int[] count;
+    int[] nums;
+    int[] output, indexArr;
+    
     public List<Integer> countSmaller(int[] nums) {
-        List<Integer> res = new ArrayList<Integer>();     
-
-        count = new int[nums.length];
-        int[] indexes = new int[nums.length];
-        for(int i = 0; i < nums.length; i++){
-            indexes[i] = i;
+        this.nums = nums;
+        this.output = new int[nums.length];
+        this.indexArr = new int[nums.length];
+        List<Integer> outputList = new ArrayList<Integer>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            indexArr[i] = i;
         }
-        mergesort(nums, indexes, 0, nums.length - 1);
-        for(int i = 0; i < count.length; i++){
-            res.add(count[i]);
+        mergeSort(0, nums.length - 1);
+        for (int i = 0; i < nums.length; i++) {
+            outputList.add(output[i]);
         }
-        return res;
+        return outputList;
     }
-    private void mergesort(int[] nums, int[] indexes, int start, int end){
-        if(end <= start){
-            return;
+    
+    public void mergeSort(int left, int right) {
+        if (left < right) {
+            int mid = left + ((right - left) / 2);
+            mergeSort(left, mid);
+            mergeSort(mid + 1, right);
+            mergeTwoSortedList(left, mid, right);
         }
-        int mid = (start + end) / 2;
-        mergesort(nums, indexes, start, mid);
-        mergesort(nums, indexes, mid + 1, end);
-
-        merge(nums, indexes, start, end);
     }
-    private void merge(int[] nums, int[] indexes, int start, int end){
-        int mid = (start + end) / 2;
-        int left_index = start;
-        int right_index = mid+1;
-        int rightcount = 0;    	
-        int[] new_indexes = new int[end - start + 1];
-
-        int sort_index = 0;
-        while(left_index <= mid && right_index <= end){
-            if(nums[indexes[right_index]] < nums[indexes[left_index]]){
-                new_indexes[sort_index] = indexes[right_index];
-                rightcount++;
-                right_index++;
-            }else{
-                new_indexes[sort_index] = indexes[left_index];
-                count[indexes[left_index]] += rightcount;
-                left_index++;
+    
+    public void mergeTwoSortedList(int l, int m, int r) {
+        int[] left = Arrays.copyOfRange(indexArr, l, m + 1);
+        int[] right = Arrays.copyOfRange(indexArr, m + 1, r + 1);
+        int i = 0, j = 0, k = l;
+        int count = 0;
+        
+        while (i < left.length && j < right.length) {
+            if (nums[right[j]] < nums[left[i]]) {       // right side should be strictly smaller
+                count++;                                // main logic
+                indexArr[k++] = right[j++];
+            } else {
+                output[left[i]] += count;               // main logic
+                indexArr[k++] = left[i++];
             }
-            sort_index++;
         }
-        while(left_index <= mid){
-            new_indexes[sort_index] = indexes[left_index];
-            count[indexes[left_index]] += rightcount;
-            left_index++;
-            sort_index++;
+        while (i < left.length) {
+            output[left[i]] += count;
+            indexArr[k++] = left[i++];
         }
-        while(right_index <= end){
-            new_indexes[sort_index++] = indexes[right_index++];
-        }
-        for(int i = start; i <= end; i++){
-            indexes[i] = new_indexes[i - start];
+        while (j < right.length) {
+            indexArr[k++] = right[j++];
         }
     }
 }
