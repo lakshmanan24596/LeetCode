@@ -19,58 +19,92 @@ Constraints:
 Follow up: A naive algorithm of O(n2) is trivial, Could you do better than that?
 */
 
+
+/*
+    Merge sort
+        time: n*logn + n
+        space: n
+        https://www.geeksforgeeks.org/counting-inversions/
+    
+    similar problems:
+        1) https://leetcode.com/problems/reverse-pairs/
+        2) https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+        
+    Implementation of countSum():
+        For each i (left side), we need to find two indices lo and up (right side)
+            lo is the first index satisfy >= lower range
+            up is the first index satisfy > upper range
+            now, output += up - lo
+*/
+
 class Solution {
-    int count = 0;
+    int output = 0;
+    long[] prefixSum;
+    int[] indexArr;
     int lower, upper;
-    long[] sum, temp;
     
     public int countRangeSum(int[] nums, int lower, int upper) {
         this.lower = lower;
         this.upper = upper;
-        int n = nums.length;
-        sum = new long[n + 1];
-        temp = new long[n + 1];
+        this.prefixSum = new long[nums.length + 1];
+        this.indexArr = new int[nums.length + 1];
         
-        for (int i = 0; i < n; i++) {
-            sum[i + 1] = sum[i] + (long) nums[i];
+        for (int i = 0; i < nums.length; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+            indexArr[i + 1] = i + 1;
         }
-        mergesort(0, n);
-        return count;
+        mergeSort(1, nums.length);
+        return output;
     }
     
-    private void mergesort(int start, int end) {
-        if (start < end) {
-            int mid = start + (end - start) / 2;
-            mergesort(start, mid);
-            mergesort(mid + 1, end);
-            merge(start, mid, end);
+    public void mergeSort(int left, int right) {
+        if (left == right) {
+            long sum = prefixSum[indexArr[right]] - prefixSum[indexArr[left - 1]];
+            if (sum >= lower && sum <= upper) {
+                output++;
+            }
+        }
+        else if (left < right) {
+            int mid = left + ((right - left) / 2);
+            mergeSort(left, mid);
+            mergeSort(mid + 1, right);
+            countSum(left, mid, right);                             // calculate before merge
+            mergeTwoSortedList(left, mid, right);
         }
     }
     
-    private void merge(int start, int mid, int end) {
-        int index = start;
-        int left = start, right = mid + 1;
-        int low = mid + 1, high = mid + 1; 
-        
-        for (; left <= mid; left++) {
-            while (low <= end && sum[low] - sum[left] < lower) {
-                low++;
+    public void countSum(int left, int mid, int right) {
+        for (int i = left; i <= mid; i++) {
+            int lo = mid + 1;
+            while (lo <= right && prefixSum[indexArr[lo]] - prefixSum[indexArr[i - 1]] < lower) {
+                lo++;
             }
-            while (high <= end && sum[high] - sum[left] <= upper) {
-                high++;
+            
+            int up = lo;
+            while (up <= right && prefixSum[indexArr[up]] - prefixSum[indexArr[i - 1]] <= upper) {
+                up++;
             }
-            while (right <= end && sum[right] < sum[left]) {
-                temp[index++] = sum[right++];
-            }
-            temp[index++] = sum[left];
-            count += high - low;
+            output += up - lo;
         }
-        while (right <= end) {
-            temp[index++] = sum[right++];
-        }
+    }
+    
+    public void mergeTwoSortedList(int l, int m, int r) {           // normal merge, with no changes
+        int[] left = Arrays.copyOfRange(indexArr, l, m + 1);
+        int[] right = Arrays.copyOfRange(indexArr, m + 1, r + 1);
+        int i = 0, j = 0, k = l;
         
-        for (int i = start; i <= end; i++) {
-            sum[i] = temp[i];
+        while (i < left.length && j < right.length) {
+            if (prefixSum[left[i]] < prefixSum[right[j]]) {
+                indexArr[k++] = left[i++];
+            } else {
+                indexArr[k++] = right[j++];
+            }
+        }
+        while (i < left.length) {
+            indexArr[k++] = left[i++];
+        }
+        while (j < right.length) {
+            indexArr[k++] = right[j++];
         }
     }
 }
