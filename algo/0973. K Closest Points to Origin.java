@@ -23,48 +23,116 @@ Note:
 -10000 < points[i][1] < 10000
 */
 
-class Solution 
-{
-    public int[][] kClosest(int[][] points, int k) // Time: n*logk, Space: k
-    {
+
+/*
+    https://leetcode.com/problems/k-closest-points-to-origin/discuss/220235/Java-Three-solutions-to-this-classical-K-th-problem.
+    
+    1) Sort:
+        time: n*logn
+        space: n
+        
+    2) priority queue:
+        it works well for stream of inputs because space complexity is less
+        time: n*logk
+        space: k
+        
+    3) quick select:
+        time: n average and n^2 worst case
+        space: 1
+        
+    getDistance();
+        returns the Euclidean distance of a point from the origin
+        actual formula to calculate distance of a point from the origin is by using pythagoras theorem
+        distance = Math.sqrt(((x2-x1)^2) + ((y2-y1)^2))
+        x1,y1 is 0,0 which is origin and x2,y2 is curr point
+*/
+
+/*
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
         int n = points.length;
         if(k == n) {
             return points;
         }
+        PriorityQueue<int[]> pQueue = new PriorityQueue<int[]>((a, b) -> (getDistance(b) - getDistance(a)));
         
-        PriorityQueue<int[]> pQueue = new PriorityQueue<int[]>(new Comparator<int[]>() {    
-            public int compare(int[] point1, int[] point2) {
-                return getDistance(point2) - getDistance(point1);           // max heap
-            }
-        });
-        
-        for(int i = 0; i < n; i++)      
-        {
-            if(i < k) {                                                     // first K elements
+        for(int i = 0; i < n; i++) {
+            if(i < k) {                                                       // first K elements
                 pQueue.add(points[i]);
-            }
-            else if(getDistance(points[i]) < getDistance(pQueue.peek())) {  // remaining elemnents
+            } else if(getDistance(points[i]) < getDistance(pQueue.peek())) {  // remaining elemnents
                 pQueue.add(points[i]);
                 pQueue.remove();
             }
         }
         
-        int[][] output = new int[k][];
-        int count = 0;
-        while(!pQueue.isEmpty()) {
-            output[count++] = pQueue.remove();    
+        int[][] output = new int[k][2];
+        while(k-- > 0) {
+            output[k] = pQueue.remove();
         }
         return output;
     }
     
-    public int getDistance(int[] point)     // returns the Euclidean distance of a point from the origin
-    {        
+    public int getDistance(int[] point) {        
         int x = point[0];
         int y = point[1];
-        return (x * x) + (y * y);           // main logic
+        return (x * x) + (y * y);
+    }
+}
+*/
+
+class Solution {
+    int[][] points;
+    int k;
+    
+    public int[][] kClosest(int[][] points, int k) {
+        this.points = points;
+        this.k = k;
+        quickSelect(0, points.length - 1);
+        return Arrays.copyOfRange(points, 0, k);
+    }
+    
+    public void quickSelect(int left, int right) {
+        while (left <= right) {
+            int pivot = partition(left, right);
+            if (pivot == k) {
+                return;
+            }
+            else if (pivot < k) {
+                left = pivot + 1;
+            } else {
+                right = pivot - 1;
+            }
+        }
+    }
+    
+    public int partition(int left, int right) {
+        int i = left, j = right;
+        int pivot = left;
         
-        // actual formula to calculate distance of a point from the origin is by using pythagoras theorem
-        // distance = Math.sqrt(((x2-x1)^2) + ((y2-y1)^2))
-        // x1,y1 is 0,0 which is origin and x2,y2 is curr point
+        while (i < j) {
+            while (i < right && getDistance(points[i]) <= getDistance(points[pivot])) {
+                i++;
+            }
+            while (j > left && getDistance(points[j]) >= getDistance(points[pivot])) {
+                j--;
+            }
+            if (i < j) {
+                swap(i, j);
+            }
+        }
+        swap(pivot, j);
+        return j;
+    }
+    
+    public void swap(int i, int j) {
+        int[] temp = points[i];
+        points[i] = points[j];
+        points[j] = temp;
+    }
+    
+    public int getDistance(int[] point) {        
+        int x = point[0];
+        int y = point[1];
+        return (x * x) + (y * y);
     }
 }
