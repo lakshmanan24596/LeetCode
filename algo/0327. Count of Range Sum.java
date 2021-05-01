@@ -35,6 +35,10 @@ Follow up: A naive algorithm of O(n2) is trivial, Could you do better than that?
             lo is the first index satisfy >= lower range
             up is the first index satisfy > upper range
             now, output += up - lo
+
+    Note: 
+        If only +ve numbers are present then no need merge step
+        because for only +ve, the prefixSum[] will be always sorted
 */
 
 class Solution {
