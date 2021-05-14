@@ -25,6 +25,7 @@ The length of s2 will be in the range [1, 100].
     1) sliding window
         time: (s1 * s1) + s2 in worst case, because we reset i, j each time when there is a match
         space: 1
+        https://leetcode.com/problems/minimum-window-subsequence/discuss/109356/JAVA-two-pointer-solution-(12ms-beat-100)-with-explaination
     
     2) DP
         time: s1 * s2
