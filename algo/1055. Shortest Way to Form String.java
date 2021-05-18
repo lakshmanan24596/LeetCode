@@ -38,7 +38,7 @@ The lengths of source and target string are between 1 and 1000.
         space: O(sourceLength)
         https://leetcode.com/problems/shortest-way-to-form-string/discuss/304662/Python-O(M-%2B-N*logM)-using-inverted-index-%2B-binary-search-(Similar-to-LC-792)
         
-    3) inverted index + O(1) search
+    3) inverted index + O(1) lookup search
         time: O(26 * sourceLength) + O(targetLength + sourceLength)
         space: O(26 * sourceLength)
         https://leetcode.com/problems/shortest-way-to-form-string/discuss/330938/Accept-is-not-enough-to-get-a-hire.-Interviewee-4-follow-up
