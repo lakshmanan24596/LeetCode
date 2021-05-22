@@ -46,7 +46,7 @@ class Solution {
     
     public int dfs(TreeNode root) {                         // post order, n time, h space
         if (root == null) {
-            return 0;
+            return 0; 
         }
         int left = dfs(root.left);
         int right = dfs(root.right);
