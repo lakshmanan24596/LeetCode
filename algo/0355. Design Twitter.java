@@ -42,7 +42,7 @@ twitter.getNewsFeed(1);
     
     Time:
         post, follow, unfollow --> O(1)
-        getNewsFeed            --> O(friends + size*log(size)), where size = 10
+        getNewsFeed            --> O(FlogF + KlogF), where F=friends, K=10
     Space:
         tweets + (users * users), becuase we are storing friends for each user
 */
