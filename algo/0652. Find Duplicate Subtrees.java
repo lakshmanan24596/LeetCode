@@ -38,6 +38,23 @@ The number of the nodes in the tree will be in the range [1, 10^4]
  */
 
 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+
 /*
 // https://leetcode.com/problems/find-duplicate-subtrees/discuss/106011/Java-Concise-Postorder-Traversal-Solution
 // Time: n^2
@@ -59,8 +76,9 @@ class Solution
         if(root == null) {
             return "#";
         }
-        
-        String hashKey = new StringBuilder(Integer.toString(root.val)).append(",").append(postOrder(root.left)).append(",").append(postOrder(root.right)).toString();  // main logic
+        String hashKey = new StringBuilder(Integer.toString(root.val))
+                            .append(",").append(postOrder(root.left))
+                            .append(",").append(postOrder(root.right)).toString();  // main logic
         
         map.put(hashKey, map.getOrDefault(hashKey, 0) + 1);
         if(map.get(hashKey) == 2) {
@@ -106,8 +124,11 @@ class Solution {
 */
 
 
-// https://leetcode.com/problems/find-duplicate-subtrees/discuss/106011/Java-Concise-Postorder-Traversal-Solution
-// Time: n --> mapping a string to a serial id
+/*
+    https://leetcode.com/problems/find-duplicate-subtrees/discuss/106011/Java-Concise-Postorder-Traversal-Solution
+    Time: n --> mapping a string to a serial id
+    instead of string, serial id is appended which reduces time from n^2 to n
+*/
 class Solution 
 {
     List<TreeNode> output = new ArrayList<TreeNode>();
@@ -126,8 +147,9 @@ class Solution
         if(root == null) {
             return 0;
         }
-        
-        String hashKey = new StringBuilder(Integer.toString(root.val)).append(",").append(postOrder(root.left)).append(",").append(postOrder(root.right)).toString();  // main logic: instead of string, serial id is appended which reduces time from n^2 to n
+        String hashKey = new StringBuilder(Integer.toString(root.val))
+                            .append(",").append(postOrder(root.left))
+                            .append(",").append(postOrder(root.right)).toString();   
         
         int currSerialId;
         if(stringToSerialIdMap.containsKey(hashKey)) // duplicate subtree

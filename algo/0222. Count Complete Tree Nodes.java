@@ -24,46 +24,44 @@ Output: 6
  *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution 
-{
-    /*
-    Time:::  T(n) = 2 log(n) + T(n/2)
+
+
+/*
+    1) https://leetcode.com/problems/count-complete-tree-nodes/discuss/61958/Concise-Java-solutions-O(log(n)2)
+    2) https://leetcode.com/problems/count-complete-tree-nodes/discuss/61953/Easy-short-c%2B%2B-recursive-solution
+    
+    3) binary search last level: https://leetcode.com/problems/count-complete-tree-nodes/solution/
+        we need to do binary search in last level
+        no of leaf nodes = 2^h
+        time: O(log(2^h)) = O(h) = O(logn)
+
+    Time complexity for below code:
+        T(n) = 2 log(n) + T(n/2)
              = 2 log(n) + 2 log(n/2) + 2 log(n/4) +...
              = 2 (log(n) + log(n/2) + log(n/4)+...)
              = 2 (log(n) * log(n))
              = log(n)^2
-    */
-    
-    public int countNodes(TreeNode root)
-    {
-        if (root == null) 
+*/
+
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) {
             return 0;
-        
+        }
         int leftHeight = countHeight(root.left);
         int rightHeight = countHeight(root.right);
         
-        if (leftHeight == rightHeight)
+        if (leftHeight == rightHeight) {
             return (int)Math.pow(2, leftHeight) + countNodes(root.right);
-        else
+        } else {
             return (int)Math.pow(2, rightHeight) + countNodes(root.left);
+        } 
     }
     
-    public int countHeight(TreeNode root) 
-    {
-        if (root == null)
+    public int countHeight(TreeNode root) {
+        if (root == null) {
             return 0;
-        else
-            return 1 + countHeight(root.left);
+        }
+        return 1 + countHeight(root.left);
     }
 }
-
-// class Solution 
-// {
-//     public int countNodes(TreeNode root) 
-//     {
-//         if(root == null)
-//             return 0;
-        
-//         return 1 + countNodes(root.left) + countNodes(root.right);
-//     }
-// }
