@@ -35,37 +35,30 @@ twitter.getNewsFeed(1);
 */
 
 
-
 /*
     Logic: HashMap, MaxHeap, LinkedList
-    getNewsFeed can be implemented using merge K sorted Lists using heap, where K = 10
-    
+    getNewsFeed can be implemented using "merge K sorted Lists" using heap, where K = 10
+    refer: https://www.geeksforgeeks.org/find-m-th-smallest-value-in-k-sorted-arrays/    
+
     Time:
         post, follow, unfollow --> O(1)
-        getNewsFeed            --> O(FlogF + KlogF), where F=friends, K=10
+        getNewsFeed            --> O(FlogK + KlogK + KlogK), where F=friends, K=10
     Space:
-        tweets + (users * users), becuase we are storing friends for each user
+        store all tweets            --> O(tweets)
+        store friends for each user --> O(users * users)
+        store output news feed      --> O(K) 
 */
 
 class Twitter {
     Map<Integer, User> userMap;     // easy to find if user exist
     int currTime;
-    int getReqFeedsSize;
+    int K;
     
     /** Initialize your data structure here. */
     public Twitter() {
         userMap = new HashMap<Integer, User>();
         currTime = 0;
-        getReqFeedsSize = 10;
-    }
-    
-    /** Compose a new tweet. */
-    public void postTweet(int userId, int tweetId) {
-        Tweet tweet = new Tweet(tweetId);
-        User user = getUser(userId);
-        
-        tweet.next = user.tweetHead;
-        user.tweetHead = tweet;
+        K = 10;
     }
     
     /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
@@ -74,47 +67,50 @@ class Twitter {
         if(!userMap.containsKey(userId)) {
             return newsFeedResult;
         }
-        PriorityQueue<Tweet> pQueue = new PriorityQueue<Tweet>((t1, t2) -> (t2.time - t1.time)); // maxHeap
+        PriorityQueue<Tweet> minHeap = new PriorityQueue<Tweet>((t1, t2) -> (t1.time - t2.time)); // minHeap of size K
         User user = getUser(userId);
         for (User friend : user.friends) {
             if (friend.tweetHead != null) {
-                pQueue.add(friend.tweetHead);
+                if (minHeap.size() < K) {
+                    minHeap.add(friend.tweetHead);
+                } else if (friend.tweetHead.time > minHeap.peek().time) {
+                    minHeap.remove();
+                    minHeap.add(friend.tweetHead);
+                }
             }
         }
-        while (!pQueue.isEmpty() && newsFeedResult.size() < getReqFeedsSize) {  // implementation of merge K sorted Lists
-            Tweet tweet = pQueue.remove();
+        PriorityQueue<Tweet> maxHeap = new PriorityQueue<Tweet>((t1, t2) -> (t2.time - t1.time)); // maxHeap of size K
+        while (!minHeap.isEmpty()) {
+            maxHeap.add(minHeap.remove());                         // convert minHeap to maxHeap
+        }
+        while (!maxHeap.isEmpty() && newsFeedResult.size() < K) {  // implementation of merge K sorted Lists
+            Tweet tweet = maxHeap.remove();
             newsFeedResult.add(tweet.id);
             if (tweet.next != null) {
-                pQueue.add(tweet.next);
+                maxHeap.add(tweet.next);
             }
         }
         return newsFeedResult;
     }
     
+    /** Compose a new tweet. */
+    public void postTweet(int userId, int tweetId) {
+        getUser(userId).postTweet(tweetId);
+    }
+    
     /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
     public void follow(int followerId, int followeeId) {
-        User follower = getUser(followerId);
-        User followee = getUser(followeeId);
-        follower.friends.add(followee);
+        getUser(followerId).follow(getUser(followeeId));
     }
     
     /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
     public void unfollow(int followerId, int followeeId) {
-        if(!userMap.containsKey(followerId) || followerId == followeeId) {
-            return;
-        }
-        User follower = getUser(followerId);
-        User followee = getUser(followeeId);
-        follower.friends.remove(followee);
+        getUser(followerId).unfollow(getUser(followeeId));
     }
     
     public User getUser(int userId) {
-        User user = userMap.get(userId);
-        if (user == null) {
-            user = new User(userId);
-            userMap.put(userId, user);
-        }  
-        return user;
+        userMap.putIfAbsent(userId, new User(userId));
+        return userMap.get(userId);
     }
     
     class User {
@@ -128,6 +124,20 @@ class Twitter {
             friends = new HashSet<User>();
             friends.add(this);      // follows itself
         }
+        
+        public void follow(User followee) {
+            this.friends.add(followee);
+        }
+        
+        public void unfollow(User followee) {
+            this.friends.remove(followee);
+        }
+        
+        public void postTweet(int tweetId) {
+            Tweet tweet = getTweet(tweetId);
+            tweet.next = this.tweetHead;
+            this.tweetHead = tweet;
+        }
     }
     
     class Tweet {
@@ -139,6 +149,10 @@ class Twitter {
             id = tweetId;
             time = currTime++;
             next = null;
+        }
+        
+        public Tweet getTweet(int tweetId) {
+            return new Tweet(tweetId);
         }
     }
 }
