@@ -89,6 +89,22 @@ class Solution {
 
 /*
     Time optimization for above solution
+        ex: d = 3, f = 6, t = 7
+        table: (d vs target)
+            1, 1, 1, 1, 1, 1, 1
+            0, 1, 2, 3, 4, 5, 6
+            0, 0, 1, 3, 6, 10, 15
+        
+        10 came from: 0 + 1 + 2 + 3 + 4
+        15 came from: 0 + 1 + 2 + 3 + 4 + 5
+        ie; sum of all elements in prev row left side elements
+        
+        we can also see that, output for 15 ==> (output of 10) + (5)
+        we have already calculated the output of 10
+    
+        so, instead of doing repeated addition (loop i = 1 to face) at each cell, we can use sum variable
+        this reduces time complexity from O(face) to O(1) to fill each cell value in 2D DP array
+
     Time: dice * target
     Space: target
 */

@@ -49,8 +49,8 @@ Output: 1076
     Time: n, Space: n
     
     Implementation:
-        sol-1: Create a n-ary tree from given array and then do "top down dfs"
-        sol-2: No need to create n-ary tree. Do "bottom up dfs" because the given array has child-parent relation.
+        sol-1: Preorder : Create a n-ary tree from given array and then do "top down dfs"
+        sol-2: PostOrder: No need to create n-ary tree. Do "bottom up dfs" because the given array has child-parent relation.
 */
 
 

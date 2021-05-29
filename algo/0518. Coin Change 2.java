@@ -76,6 +76,7 @@ class Solution
         DP states: amount, coinIndex
         time: O(amount * coins)
         space: O(amount * coins)
+        https://leetcode.com/problems/coin-change-2/discuss/675444/Java-3-DP-Solutions-Clean-code
 */
 class Solution {
     int[] coins;
@@ -109,6 +110,7 @@ class Solution {
 
 /* 
     Approach-3:
+        https://leetcode.com/problems/coin-change-2/discuss/675444/Java-3-DP-Solutions-Clean-code
         Logic: convert approach-2 to a tabulation space optimized solution
         time: O(amount * coins)
         space: O(amount)

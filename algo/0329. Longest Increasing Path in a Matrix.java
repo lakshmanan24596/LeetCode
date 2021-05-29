@@ -23,13 +23,19 @@ Output: 4
 Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
 */
 
+
+
+/*
+    1) DFS + memorization
+        Time = O(row*col), Space = O(row*col)
+
+    2) BFS Khans Topological sorting: 
+        https://leetcode.com/problems/longest-increasing-path-in-a-matrix/discuss/144558/Java-BFS-Topological-Sort
+        Time = O(row*col), Space = O(row*col)
+*/
+
 class Solution 
 {
-    /*
-    1) DFS + memorization: (Time = O(row*col), Space = O(row*col)) // DFS + memorization. (Time = O(row*col), Space = O(row*col))
-    2) Topological sorting: https://leetcode.com/problems/longest-increasing-path-in-a-matrix/discuss/144558/Java-BFS-Topological-Sort
-    */
-    
     int[][] matrix, DP;
     int[] sideX = new int[] {0, 1, 0, -1};
     int[] sideY = new int[] {1, 0, -1, 0};
