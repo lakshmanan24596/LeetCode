@@ -157,7 +157,7 @@ class Solution {
         }
         for (i = t - 1; i >= 0; i--) {
             output.addFirst(pathIndex);
-            pathIndex = path[i][pathIndex];
+            pathIndex = path[i][pathIndex];                                             // traverse bottom to top row
         }
         return output;
     }
