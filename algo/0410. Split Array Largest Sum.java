@@ -27,6 +27,8 @@ Constraints:
 
 
 /*
+    Same like problem 1231. Divide Chocolate
+    
     DP memo
         time: n * m * n
         space: n * m
