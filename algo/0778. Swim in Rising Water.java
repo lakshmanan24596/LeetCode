@@ -35,7 +35,13 @@ grid[i][j] is a permutation of [0, ..., N*N - 1].
 */
 
 
-// Techniques: Dijstra, Binary search, Union find
+
+/*
+    Techniques: Dijstra, Binary search, Union find
+    In each path, currOutput is "maxValue" in that path
+    We need to find a "minValue" Path out of all possible paths 
+    which is min(max(path1), max(path2), ...)
+*/
 /*
     Dijkstra algo using min heap
     let n = N * N which is the size of the grid
