@@ -15,35 +15,28 @@ Note:
 You can assume that you can always reach the last index.
 */
 
-class Solution 
-{
-    public int jump(int[] nums) 
-    {
-        if(nums.length == 1)
+class Solution {
+    public int jump(int[] nums) {
+        if(nums.length <= 1) {
             return 0;
-        
-        if(nums[0] == 0)
+        }
+        if(nums[0] == 0) {
             return -1;
-        
+        }
         int ladder = nums[0];
         int stairs = nums[0];
         int jumpCount = 1;
-            
-        for(int i=1; i<nums.length-1; i++)
-        {
-            // if(i == nums.length-1)
-            //     return jumpCount;
-            
-            ladder = Math.max(ladder, i + nums[i]);
+        
+        for(int i = 1; i < nums.length - 1; i++) {
+            ladder = Math.max(ladder, i + nums[i]);         // update ladder
             stairs--;
             
-            if(stairs == 0)
-            {
+            if(stairs == 0) {
                 jumpCount++;
-                stairs = ladder - i;    // take next ladder
-            
-                if(stairs <= 0)
-                    return -1;     
+                stairs = ladder - i;                        // move to next ladder 
+                if(stairs <= 0) {
+                    return -1;      
+                }            
             }
         }
         return jumpCount;

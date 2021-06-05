@@ -41,15 +41,27 @@ Constraints:
 
 
 /*
-    Logic:
-        1) sort the clips array based on start time
-        2) use DP array
+    1) DP memo
+        a) sort the clips array based on start time
+        b) use DP array
            apply proper condition for nextIndex --> (clips[next][0] <= endTime && clips[next][1] > endTime)
-           DP state: currIndex   
-           
-    Time: n^2
-    Space: n
+        
+        DP state: currIndex   
+        Time: n^2
+        Space: n
+    
+    2) greedy + sort
+        time: n*logn
+        space: 1
+        https://leetcode.com/problems/video-stitching/discuss/269984/java-O(N*lgN)-greedy
+        
+    3) greedy + jumpGame
+        time: n
+        space: 1
+        refer 1326. Minimum Number of Taps to Open to Water a Garden
 */
+
+// DP memo
 class Solution {
     int[][] clips;
     int[] DP;
@@ -62,7 +74,7 @@ class Solution {
         this.clips = clips;
         this.T = T;
         this.n = clips.length;
-        Arrays.sort(clips, (a, b) -> (a[0] - b[0]));     // sort based on start time
+        Arrays.sort(clips, (a, b) -> (a[0] - b[0]));        // sort based on start time
         this.DP = new int[n];
         
         int output = n + 1, currOutput;
@@ -92,8 +104,3 @@ class Solution {
         return DP[curr] = output;
     }
 }
-
-/*
-    Greedy: n*logn time, 1 space
-    https://leetcode.com/problems/video-stitching/discuss/269984/java-O(N*lgN)-greedy
-*/

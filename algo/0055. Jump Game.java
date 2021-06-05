@@ -16,34 +16,27 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum
              jump length is 0, which makes it impossible to reach the last index.
 */
 
-class Solution 
-{
-    public boolean canJump(int[] nums) 
-    {
-        if(nums.length <= 1)
+class Solution {
+    public boolean canJump(int[] nums) {
+        if(nums.length <= 1) {
             return true;
-        
-        if(nums[0] == 0)
+        }
+        if(nums[0] == 0) {
             return false;
-        
+        }
         int ladder = nums[0];
         int stairs = nums[0];
         
-        for(int i = 1; i < nums.length - 1; i++)
-        {
-            // if(i == nums.length-1)
-            //     return true;
-            
+        for(int i = 1; i < nums.length - 1; i++) {
             ladder = Math.max(ladder, i + nums[i]);         // update ladder
             stairs--;
             
-            if(stairs == 0)
-            {
+            if(stairs == 0) {
                 //jumpCount++;
                 stairs = ladder - i;                        // move to next ladder 
-                
-                if(stairs <= 0)
-                    return false;                    
+                if(stairs <= 0) {
+                    return false;      
+                }            
             }
         }
         return true;
