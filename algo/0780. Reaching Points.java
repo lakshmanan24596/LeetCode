@@ -58,7 +58,7 @@ class Solution {
 // https://leetcode.com/problems/reaching-points/discuss/230588/Easy-to-understand-diagram-and-recursive-solution
 class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        if (tx < tx) {
+        if (tx < ty) {
             return reachingPointsUtil(sx, sy, tx, ty);
         } else {
             return reachingPointsUtil(sy, sx, ty, tx);
