@@ -64,7 +64,7 @@ class Solution {
             factor = ((double) wage[i]) / quality[i];               // main logic
             workers[i] = new double[] {((double) quality[i]), factor};
         }
-        Arrays.sort(workers, (a, b) -> (a[1] > b[1] ? 1 : -1));     // sort based on factor
+        Arrays.sort(workers, (a, b) -> (a[1] > b[1] ? 1 : -1));     // ascending order sort based on factor
         
         for (int i = 0; i < noOfWorkers; i++) {
             qualityQueue.add(workers[i][0]);
