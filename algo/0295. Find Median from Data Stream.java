@@ -21,43 +21,36 @@ If all integer numbers from the stream are between 0 and 100, how would you opti
 If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
 */
 
-class MedianFinder 
-{
-    /*
-        1) Insertion sort + linkedlist + binary search --> Time: log(n), 1 and Space: N
-        2) min heap + max heap --> Time: 3log(n/2), 1 and Space: N
-    */
+
+
+/*
+    1) insertion sort + linkedlist + binary search --> Time: log(n), 1 and Space: n
+    2) min heap + max heap + sliding windown --> Time: 3log(n/2), 1 and Space: n
     
+    Similar to https://leetcode.com/problems/sliding-window-median/
+    Solution to follow up: https://leetcode.com/problems/find-median-from-data-stream/discuss/275207/Solutions-to-follow-ups/651523
+*/
+
+class MedianFinder {
     PriorityQueue<Integer> smallMaxHeap;
     PriorityQueue<Integer> largeMinHeap;
 
-    public MedianFinder() 
-    {
-        smallMaxHeap = new PriorityQueue<Integer>(new Comparator<Integer>() {
-            public int compare(Integer a, Integer b) {
-                return b - a;
-            }
-        });
-        largeMinHeap = new PriorityQueue<Integer>();
+    public MedianFinder() {
+        smallMaxHeap = new PriorityQueue<Integer>((a, b) -> (b - a));   // max heap
+        largeMinHeap = new PriorityQueue<Integer>();                    // min heap
     }
     
-    public void addNum(int num) 
-    {
-        if(smallMaxHeap.isEmpty()) 
-        {
+    public void addNum(int num) {
+        if(smallMaxHeap.isEmpty()) {
             smallMaxHeap.add(num);
-        }
-        else if(smallMaxHeap.size() == largeMinHeap.size()) // insert in smallMaxHeap
-        {
+        } else if(smallMaxHeap.size() == largeMinHeap.size()) {         // insert in smallMaxHeap
             if(num <= largeMinHeap.peek()) {
                 smallMaxHeap.add(num);
             } else {
                 largeMinHeap.add(num);
                 smallMaxHeap.add(largeMinHeap.remove());
             }
-        } 
-        else // smallMaxHeap > largeMinHeap, then insert in largeMinHeap
-        {
+        } else {                                                        // insert in largeMinHeap
             if(num >= smallMaxHeap.peek()) {
                 largeMinHeap.add(num);
             } else {
@@ -67,16 +60,13 @@ class MedianFinder
         }
     }
     
-    public double findMedian() 
-    {
+    public double findMedian() {
         if(smallMaxHeap.size() == largeMinHeap.size()) {
             return (smallMaxHeap.peek() + largeMinHeap.peek()) / (double)2;
         } else {
             return smallMaxHeap.peek(); // because either both size will be equal or smallMaxHeap > largeMinHeap
         }
     }
-    
-    /* Solution to follow up: https://leetcode.com/problems/find-median-from-data-stream/discuss/275207/Solutions-to-follow-ups/651523 */
 }
 
 /**

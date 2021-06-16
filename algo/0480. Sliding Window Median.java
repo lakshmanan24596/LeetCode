@@ -28,139 +28,78 @@ Answers within 10^-5 of the actual value will be accepted as correct.
 */
 
 
+
 /*
-    1) 2 heaps --> n * k (becuase pQueue remove is k)
-    2) treeset or BBST --> n * log k
-    
-    Implementation:
-        1) remove out of window element
-        2) add curr element
-        3) get median
+    1) brute force
+        time: n*k
+        space: 1
+        
+`   2) 2 heaps + lazy removal
+        time: n*logn
+        space: n
+        logic: 
+            remove random element in heap is costly operation. 
+            so instead of removing it at that point of time, use a hashmap to store out of window elements. 
+            once this element comes to root node, we can remove it in O(logn) time
+            in worst case, heap will have n elements instead of k elements which increases the complexit
+        
+    3) 2 treeset or 2 BBST
+        time: n*logk
+        space: k
+        logic:
+            since duplicates are allowed, we store array index in treeset (dont store array value)
+            left tree set stores min values in descending order -->  (similar to left child of BBST) 
+            right tree set stores max values in ascending order-->  (similar to right child of BBST) 
+        
+    similar to: https://leetcode.com/problems/find-median-from-data-stream/
 */
 
 public class Solution {
-    public double[] medianSlidingWindow(int[] nums, int k) {
-        double[] res = new double[nums.length - k + 1];
-        int idx = 0;
-        TreeMap<Integer, Integer> small = new TreeMap<>((a, b)->{return (int)((double)b-a);});
-        int smallSize = 0; 
-        TreeMap<Integer, Integer> big = new TreeMap<>();
-        int bigSize = 0;
-        
-        for(int i = 0; i<nums.length; i++){
-            if(smallSize + bigSize == k){                           // step1: remove
-                if(nums[i-k] <= small.firstKey()){
-                    remove(small, nums[i-k]);
-                    smallSize--;
-                }else{
-                    remove(big, nums[i-k]);
-                    bigSize--;
-                }
-            }
-
-            if(smallSize<=bigSize){                                 // step2: add
-                add(small, nums[i]);
-                smallSize++;
-            }else{
-                add(big, nums[i]);
-                bigSize++;
-            }
-            if(bigSize>0){
-                while(small.firstKey() > big.firstKey()){
-                    add(big, remove(small, small.firstKey()));
-                    add(small, remove(big, big.firstKey()));
-                }
-            }
-            
-            if(smallSize + bigSize==k){                             // step3: getMedian
-                if(k % 2 == 0) res[idx++] = ((double)small.firstKey() + big.firstKey())/2.0;
-                else res[idx++] = (double)small.firstKey();
-            }
-        }
-        return res;
-    }
-    
-    private int remove(TreeMap<Integer, Integer> map, int i){
-        map.put(i, map.get(i)-1);
-        if(map.get(i)==0) map.remove(i);
-        return i; 
-    }
-    
-    private void add(TreeMap<Integer, Integer> map, int i){
-        if(!map.containsKey(i)) map.put(i, 1);
-        else map.put(i, map.get(i)+1);
-    }
-}
-
-
-/*
-// INCOMPLETE CODE
-class Solution {
-    PriorityQueue<Integer> minHeap;
-    PriorityQueue<Integer> maxHeap;
-    Integer midVal;
-    int k;
+    TreeSet<Integer> left, right;
+    int[] nums;
     
     public double[] medianSlidingWindow(int[] nums, int k) {
-        this.k = k;
-        minHeap = new PriorityQueue<Integer>();
-        maxHeap = new PriorityQueue<Integer>(a, b -> (b > a) ? 1 : -1);
-        midVal = null;
-        int halfSize = (k % 2 == 0) ? (k / 2) : ((k - 1) / 2);
-        double[] median = new double[nums.length - k + 1];
+        int n = nums.length;
+        this.nums = nums;
+        this.left = new TreeSet<Integer>((a, b) -> (nums[a] == nums[b]) ? a - b : Integer.compare(nums[b], nums[a]));
+        this.right = new TreeSet<Integer>((a, b) -> (nums[a] == nums[b]) ? a - b : Integer.compare(nums[a], nums[b]));
+        double[] output = new double[n - k + 1];
         
-        for (int i = 0; i < k; i++) {
-            minHeap.add(nums[i]);
-        }
-        for (int i = 0; i < halfSize; i++) {
-            maxHeap.add(minHeap.remove());
-        }
-        if (k % 2 == 1) {
-            midVal = minHeap.remove();
-        }
-        
-        for (int i = k; i < n; i++) {           // main iteration (time: n * k)
-            median[i - k] = getMedian();
-            remove(nums[i - k]);
-            add(nums[i]);
-        }
-        return median;
-    }
-    
-    public double getMedian() {                 // main logic
-        if (k % 2 == 1) {
-            return midVal;
-        } else {
-            return (minHeap.peak() + maxHeap.peak()) / 2;
-        }
-    }
-    
-    public void remove(int num) {
-        if (num == midVal) {
-            midVal = null;
-        } else if (num <= maxHeap.peak()) {
-            maxHeap.remove(num);
-        } else {
-            minHeap.remove(num);
-        }
-    }
-    
-    public void add(int num) {
-        if (k % 2 == 0) {
-            if (minHeap.size() > maxHeap.size()) {
-                minHeap.add(num);
-                maxHeap.add(minHeap.remove());
-            } else {
-                maxHeap.add(num);
-                minHeap.add(maxHeap.remove());
+        for (int i = 0; i < n; i++) {
+            insert(i);                                 // step1: insert
+            if ((i - k + 1) >= 0) {
+                output[i - k + 1] = getMedian();       // step2: get median
+                remove(i - k + 1);                     // step3: remove out of window element
             }
+        }
+        return output;
+    }
+    
+    public void insert(int i) {                        // similar to https://leetcode.com/problems/find-median-from-data-stream/
+        if (left.isEmpty()) {
+            left.add(i);
+        } else if (left.size() <= right.size()) {      // add in left
+            right.add(i);
+            left.add(right.pollFirst());
+        } else {                                       // add in right
+            left.add(i);
+            right.add(left.pollFirst());
+        }
+    }
+    
+    public double getMedian() {
+        if (left.size() == right.size()) {
+            return ((double) nums[left.first()] + nums[right.first()]) / 2;
         } else {
-            if (midVal == null) {
-                midVal = num;
-            } else {
-                
-            }
+            return (double) nums[left.first()];
+        }
+    }
+    
+    public void remove(int i) {
+        if (left.contains(i)) {                        // current index to remove can be in any tree set
+            left.remove(i);
+        } else {
+            right.remove(i);
         }
     }
 }
-*/
