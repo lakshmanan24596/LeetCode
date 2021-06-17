@@ -89,5 +89,8 @@ class Solution {
 /*
     time: n
     space: 1
-    using slope --> https://leetcode.com/problems/candy/solution/
+    using slope:
+        diagram: https://leetcode.com/problems/candy/solution/
+        code, logic: https://leetcode.com/problems/candy/discuss/135698/Simple-solution-with-one-pass-using-O(1)-space
 */
+

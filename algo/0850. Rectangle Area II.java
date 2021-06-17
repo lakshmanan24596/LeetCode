@@ -26,14 +26,14 @@ The total area covered by all rectangles will never exceed 263 - 1 and thus will
         Time: n^3, Space: n^2
         https://www.quora.com/What-is-coordinate-compression-and-what-is-it-used-for
         https://leetcode.com/problems/rectangle-area-ii/solution/
-        
-        a) map the coordinates as arr index
-        b) create a boolean grid where is used track an area is covered or not
-            grid for ex1 --> [[true, true, false, false], 
-                              [true, true, true, false], 
-                              [true, false, false, false], 
-                              [false, false, false, false]]
-        c) then iterate the grid and if(grid[x][y]) then area += (x2 - x1) * (y2 - y1)    
+        logic:
+            a) map the coordinates as array index
+            b) create a boolean grid where is used track an area is covered or not
+                grid for ex1 --> [[true, true, false, false], 
+                                  [true, true, true, false], 
+                                  [true, false, false, false], 
+                                  [false, false, false, false]]
+            c) then iterate the grid and if(grid[x][y]) then area += (x2 - x1) * (y2 - y1)   
 
     2) line sweep technique and segment tree implementation
         yet to learn
@@ -50,13 +50,13 @@ class Solution {
             xSet.add(rec[2]);
             ySet.add(rec[1]);
             ySet.add(rec[3]);
-        }
-        Integer[] xArr = xSet.toArray(new Integer[0]);
+        }                                            
+        Integer[] xArr = xSet.toArray(new Integer[0]);      
         Arrays.sort(xArr);
         Integer[] yArr = ySet.toArray(new Integer[0]);
         Arrays.sort(yArr);
 
-        Map<Integer, Integer> xMap = new HashMap();
+        Map<Integer, Integer> xMap = new HashMap();         
         Map<Integer, Integer> yMap = new HashMap();
         for (int i = 0; i < xArr.length; i++) {
             xMap.put(xArr[i], i);
@@ -72,7 +72,7 @@ class Solution {
         long output = 0;
         
         for (int[] rec: rectangles) {
-            xStart = xMap.get(rec[0]);
+            xStart = xMap.get(rec[0]);                      // use map to fetch index from given value
             xEnd = xMap.get(rec[2]);
             yStart = yMap.get(rec[1]);
             yEnd = yMap.get(rec[3]);
@@ -80,7 +80,7 @@ class Solution {
             for (int x = xStart; x < xEnd; x++) {
                 for (int y = yStart; y < yEnd; y++) {
                     if (!grid[x][y]) {
-                        output += (long) (xArr[x+1] - xArr[x]) * (yArr[y+1] - yArr[y]);     // main logic
+                        output += (long) (xArr[x+1] - xArr[x]) * (yArr[y+1] - yArr[y]); // use arr to fetch value from given index
                         grid[x][y] = true;
                     }
                 }
