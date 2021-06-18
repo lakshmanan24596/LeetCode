@@ -24,6 +24,29 @@ Constraints:
         time: n*logn
         space: n
 */
+
+
+// sort + priorityQueue
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> (a[0] == b[0]) ? a[1] - b[1] : a[0] - b[0]);
+        PriorityQueue<Integer> meetingEndTime = new PriorityQueue<Integer>();
+        meetingEndTime.add(intervals[0][1]);
+        
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] >= meetingEndTime.peek()) {
+                meetingEndTime.remove();
+            }
+            meetingEndTime.add(intervals[i][1]);
+        }
+        return meetingEndTime.size();
+    }
+}
+
+
+/*
+// Chronological ordering
+
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
         int noOfIntervals = intervals.length;
@@ -51,3 +74,4 @@ class Solution {
         return minMeetingRooms;
     }
 }
+*/
