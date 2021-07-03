@@ -74,33 +74,33 @@ class Solution {
 
 class Solution {
     public String removeOccurrences(String s, String part) {
-		Stack<Pair> stack = new Stack<Pair>();
-		StringBuilder output = new StringBuilder();
+        Stack<Pair> stack = new Stack<Pair>();
+        StringBuilder output = new StringBuilder();
 
-		for (int i = 0; i < s.length(); i++) {
-			if (!stack.isEmpty() && s.charAt(i) == part.charAt(stack.peek().partIndex + 1)) {   // match inbetween char
-				if (stack.peek().partIndex + 1 == part.length() - 1) {
-					for (int count = 0; count < part.length() - 1; count++) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!stack.isEmpty() && s.charAt(i) == part.charAt(stack.peek().partIndex + 1)) {   // match inbetween char
+                if (stack.peek().partIndex + 1 == part.length() - 1) {
+                    for (int count = 0; count < part.length() - 1; count++) {
                         stack.pop();
                     }
-				} else {
-					stack.push(new Pair(s.charAt(i), stack.peek().partIndex + 1));
-				}
-			} 
-			else if (s.charAt(i) == part.charAt(0)) {                                           // match first char
-				if (part.length() != 1) {
-					stack.push(new Pair(s.charAt(i), 0));
-				}
-			} 
-			else {                                                                              // not match 
-				stack.push(new Pair(s.charAt(i), -1));
-			}
-		}
-		while (!stack.isEmpty()) {                                                              // form output
-			output.append(stack.pop().letter);
-		}
-		return output.reverse().toString();
-	}
+                } else {
+                    stack.push(new Pair(s.charAt(i), stack.peek().partIndex + 1));
+                }
+            } 
+            else if (s.charAt(i) == part.charAt(0)) {                                           // match first char
+                if (part.length() != 1) {
+                    stack.push(new Pair(s.charAt(i), 0));
+                }
+            }
+            else {                                                                              // not match 
+                stack.push(new Pair(s.charAt(i), -1));
+            }
+        }
+        while (!stack.isEmpty()) {                                                              // form output
+            output.append(stack.pop().letter);
+        }
+        return output.reverse().toString();
+    }
 }
 
 class Pair {
