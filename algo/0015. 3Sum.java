@@ -20,14 +20,14 @@ class Solution
     public List<List<Integer>> threeSum(int[] arr) 
     {
         
-        HashSet<String> set = new HashSet<String>();
+        HashSet<Node> set = new HashSet<Node>();
         List<List<Integer>> output = new ArrayList<List<Integer>>();
         List<Integer> currOutput = null;
         
         Arrays.sort(arr);
         int length = arr.length;
         int i,j,k;
-        String key;
+        Node key;
         
         for(i=0; i<length-2; i++)
         {
@@ -39,7 +39,7 @@ class Solution
                 int sum = arr[i] + arr[j] + arr[k];              
                 if(sum == 0)
                 {
-                    key = arr[i] + "," + arr[j] + "," + arr[k];
+                    key = new Node(arr[i], arr[j], arr[k]);
                     if(!set.contains(key))  // unique triplets check
                     {       
                         currOutput = new ArrayList<Integer>();
@@ -62,5 +62,26 @@ class Solution
         }
         
         return output;
+    }
+}
+
+class Node {
+    int x, y, z;
+    
+    Node(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }    
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y, this.z);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        Node node = (Node) obj;
+        return this.x == node.x && this.y == node.y && this.z == node.z;
     }
 }
