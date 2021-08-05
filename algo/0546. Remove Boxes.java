@@ -99,6 +99,7 @@ class Solution {
 /*
     https://leetcode.com/problems/remove-boxes/discuss/975800/Java-DP%2BDFS-code%2Bphoto
     https://leetcode.com/problems/remove-boxes/discuss/101328/Java-Preprocessing-DFS-%2B-Memoization-less-space-needed
+    https://leetcode.com/problems/remove-boxes/discuss/645838/Evolve-from-intuition-to-dp
     k --> number of adjacent consecutive boxes with same color as left
     
     time: n^4

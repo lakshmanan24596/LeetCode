@@ -39,17 +39,22 @@ You cannot travel back to station 2, as it requires 4 unit of gas but you only h
 Therefore, you can't travel around the circuit once no matter where you start.
 */
 
+
+
+/*
+    gas --> gas available in station i
+    cost --> gas needed to move from station i to i+1
+    
+    O(n^2) --> try to start at all stations where gas[i] > cost[i]
+    O(n) --> greedy
+
+    logic::: if(totalGas >= totalCost) then solution exist, else -1
+*/
+
 class Solution 
 {
     public int canCompleteCircuit(int[] gas, int[] cost) 
     {
-        /*
-            O(n^2) --> try to start at all stations where gas[i] > cost[i]
-            O(n) --> greedy
-            
-            logic::: if(totalGas >= totalCost) then solution exist, else -1
-        */
-        
         int n = gas.length, start = 0, totalTank = 0, currTank = 0;
         
         for(int i = 0; i < n; i++) 

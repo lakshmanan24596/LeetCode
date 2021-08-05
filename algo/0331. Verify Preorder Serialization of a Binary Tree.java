@@ -28,22 +28,25 @@ Input: "9,#,#,1"
 Output: false
 */
 
-class Solution  
-{
+
+/* 
+    better solution without recursion: 
+    https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/discuss/78551/7-lines-Easy-Java-Solution
+    refer deserialize() in problem 297 - https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+*/
+
+class Solution  {
     public final String nullNode = "#";
     public final String splitStr = ",";
+    int i = -1;
+    String[] arr = null;
     
-    int i = -1;                 // deSerializeIndex
-    String[] arr = null;        // deSerializeArray
-    
-    public boolean isValidSerialization(String data) 
-    {
+    public boolean isValidSerialization(String data) {
         arr = data.split(splitStr);
         return deserialize() && i == arr.length - 1;
     } 
     
-    public boolean deserialize() // refer deserialize() in problem 297 - https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
-    {
+    public boolean deserialize() {
         ++i;
         if(i >= arr.length) {
             return false;
@@ -51,16 +54,6 @@ class Solution
         if(arr[i].equals(nullNode)) {
             return true;
         }
-        
-        boolean left = deserialize();
-        if(left == false) {
-            return left;
-        }
-        
-        boolean right = deserialize();
-        return right;
+        return deserialize() && deserialize();  // left && right
     }
-    
-    // better solution without recursion: 
-    // https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/discuss/78551/7-lines-Easy-Java-Solution
 }

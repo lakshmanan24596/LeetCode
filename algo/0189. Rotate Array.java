@@ -27,20 +27,21 @@ It's guaranteed that nums[i] fits in a 32 bit-signed integer.
 k >= 0
 */
 
+
+/*
+    1) brute : NK, 1
+    2) brute : N, N
+    3) reverse : N, 1
+    4) cyclic replacement: N, 1
+*/      
+
+// cyclic replacement
 class Solution 
 {
     public void rotate(int[] nums, int k) 
     {        
-        // 1) brute : NK, 1
-        // 2) brute : N, N
-        // 3) reverse : N, 1
-        // 4) cyclic replacement: N, 1
-        
-        
-        // cyclic replacement
         int n = nums.length;
         k = k % n;
-        
         int currIndex, currValue, nextIndex, nextValue;
         int startIndex, count = 0;
         
