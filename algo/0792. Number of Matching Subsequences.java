@@ -24,7 +24,7 @@ The length of words[i] will be in the range of [1, 50].
     
     Trie can be used only for startsWith, since this ques is about sub-seq, str.indexOf(char, fromIndex) is used
     
-    Binary search --> pre-process string
+    Binary search --> pre-process string -->  input = "abacbca" ---> POS = ['a','b','c'] = [[0,2,6], [1,4], [3,5]]
     Trie, Queue --> pre-process words
 */
 

@@ -17,6 +17,8 @@ Output: 299
 Note: N is an integer in the range [0, 10^9].
 */
 
+
+/*
 class Solution 
 {
     public int monotoneIncreasingDigits(int n) 
@@ -53,5 +55,27 @@ class Solution
         }
         
         return origN - diff;
+    }
+}
+*/
+
+
+class Solution {
+    public int monotoneIncreasingDigits(int n) {
+        String s = String.valueOf(n);
+        char[] chars = s.toCharArray();
+        int start = chars.length;
+        
+        for (int i = s.length() - 1; i > 0; i--) {
+            if (chars[i - 1] > chars[i]) {
+                chars[i - 1]--;
+                start = i;
+            }
+        }
+        
+        for (int i = start; i < s.length(); i++) {
+            chars[i] = '9';
+        }
+        return Integer.parseInt(String.valueOf(chars));
     }
 }

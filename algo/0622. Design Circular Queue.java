@@ -63,12 +63,11 @@ class MyCircularQueue
         Node newNode = new Node(value);
         if(count == 0) {
             head = newNode;
-            tail = newNode;
         } 
         else {
             tail.next = newNode;    // push last
-            tail = newNode;
         }
+        tail = newNode;
         tail.next = head;           // circular queue
         count++;
         return true;
