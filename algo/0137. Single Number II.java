@@ -11,55 +11,81 @@ Input: [0,1,0,1,0,1,99]
 Output: 99
 */
 
-class Solution 
-{
-    public int singleNumber(int[] nums) 
-    {
-        // logic::: nums = 5,5,8,5
+
+/*
+    logic:
+        (3 * (a+b+c)) − (a+a+a+b+b+b+c) = 2c
+        c = ((3 * (a+b+c)) − (a+a+a+b+b+b+c)) / 2
+    
+    hashset, math
+    time: n
+    space: n
+*/
+class Solution {
+    public int singleNumber(int[] nums) {
+        Set<Integer> set = new HashSet<Integer>();
+        long sumSet = 0, sumArray = 0;
         
-        // 5 --> 0 1 0 1
-        // 5 --> 0 1 0 1
-        // 8 --> 1 0 0 0
-        // 5 --> 0 1 0 1
-        //      
-        //       1 3 0 3    --> count number of one
-        //       1 0 0 0    --> each bit modulo 3
-        // which is equal to 8
+        for(int num : nums) {
+            sumArray += num;
+            if (set.add(num)) {
+                sumSet += num;
+            }
+        }
+        return (int)((3 * sumSet - sumArray) / 2);      // main logic
+    }
+}
+
+
+
+/*
+    time: n
+    space: 1
+    bitwise operator
+    
+    logic::: nums = 5,5,8,5
         
-        // similarly we can do modulo "any number" based on the question
+        5 --> 0 1 0 1
+        5 --> 0 1 0 1
+        8 --> 1 0 0 0
+        5 --> 0 1 0 1
+             
+              1 3 0 3    --> count number of one
+              1 0 0 0    --> each bit modulo 3
+        which is equal to 8
         
-        // TIME = O(32 * n)
+        similarly we can do modulo "any number" based on the question
         
-        // How to check if a bit is set or not
-        // example: n = 5 and check 3 rd bit is set or not
+        TIME = O(32 * n)
         
-        // n --> 0 1 0 1
-        // x --> 0 1 0 0
-        //    &    
-        // x --> 0 1 0 0  --> So if(n & x)==x then that bit is set to 1
+        How to check if a bit is set or not
+        example: n = 5 and check 3 rd bit is set or not
         
+        n --> 0 1 0 1
+        x --> 0 1 0 0
+           &    
+        x --> 0 1 0 0  --> So if(n & x)==x then that bit is set to 1 else set to 0
+*/
+/*
+class Solution {
+    public int singleNumber(int[] nums) {
+        int INT_SIZE = 32;
+        int result = 0, count = 0;
+        int x = 1;
         
-        
-        int INT_SIZE = 32,
-            result = 0,
-            count,
-            x = 1;
-        
-        for(int i = 0; i < INT_SIZE; i++)
-        {     
-            count = 0;
-            for(int j = 0; j < nums.length; j++)
-            {
-                if((nums[j] & x) == x)
-                    count++;  // count of bit 1
+        for (int i = 0; i < INT_SIZE; i++) {                       
+            for (int j = 0; j < nums.length; j++) {
+                if ((nums[j] & x) == x)
+                    count++;        // count of one
             }
             
-            if(count % 3 != 0)
-                result |= x;    // OR operator is addition here
-            
-             x = x << 1;     // x value will be (binary) 1,10,100,1000,10000,... which is (decimal) 1,2,4,8,16
+            if (count % 3 != 0) {
+                result |= x;        // OR operator is addition here
+            }
+            count = 0;
+            x = x << 1;             // x value will be 1,10,100,1000,10000,... which is 1,2,4,8,16
         }
-        
         return result;
     }
 }
+*/
