@@ -29,22 +29,25 @@ Constraints:
 0 <= prices[i] <= 105
 */
 
+
+ /* 
+    brute force --> O(n*n)
+    Max profit with at most two transactions =
+    MAX {max profit with one transaction and subarray price[0..i] +
+         max profit with one transaction and subarray price[i+1..n-1]  }
+    i varies from 0 to n-1. 
+
+
+    1) O(n*n)
+    2) O(n), O(n)
+    3) O(n), O(1)
+*/
+
+//  O(n), O(n)
 class Solution 
 {
     public int maxProfit(int[] prices) 
     {
-        /* brute force --> O(n*n)
-        Max profit with at most two transactions =
-        MAX {max profit with one transaction and subarray price[0..i] +
-             max profit with one transaction and aubarray price[i+1..n-1]  }
-        i varies from 0 to n-1. 
-        
-        
-        1) O(n*n)
-        2) O(n), O(n)
-        3) O(n), O(1)
-        */
-        
         int n = prices.length;
         if(n < 2) {
             return 0;
@@ -67,3 +70,23 @@ class Solution
         return profit[0];
     }
 }
+
+
+/*
+// O(n), O(1)
+class Solution {
+    public int maxProfit(int[] prices) {
+        int buy1 = Integer.MAX_VALUE, buy2 = Integer.MAX_VALUE;
+        int sell1 = 0, sell2 = 0;
+
+        for (int price : prices) {
+            buy1 = Math.min(buy1, price);
+            sell1 = Math.max(sell1, price - buy1);
+        
+            buy2 = Math.min(buy2, price - sell1);       // consider profit gained in first transaction
+            sell2 = Math.max(sell2, price - buy2);
+        }
+        return sell2;
+    }
+}
+*/

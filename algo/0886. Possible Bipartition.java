@@ -28,8 +28,8 @@ There does not exist i != j for which dislikes[i] == dislikes[j].
 
 
 /*
-   same as 785. Is Graph Bipartite?
-   if "odd length cycle" is formed, then not possible to group the persons
+    Graph coloring with 2 colors
+    same as 785. Is Graph Bipartite?
 */
 class Solution 
 {

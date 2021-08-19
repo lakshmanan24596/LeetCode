@@ -26,9 +26,8 @@ The graph is guaranteed to be undirected.
 
 
 /*
-    1) no cycle - false
-    2) even length cycle - false
-    3) odd length cycle - true
+    Graph coloring with 2 colors
+    same as 886. Possible Bipartition
     
     https://www.geeksforgeeks.org/bipartite-graph/
     https://leetcode.com/problems/is-graph-bipartite/discuss/115487/Java-Clean-DFS-solution-with-Explanation
