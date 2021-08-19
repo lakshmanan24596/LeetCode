@@ -39,7 +39,7 @@ n == capital.length
 
     similar problems: 857, 1383, 871, 502
 */
-
+ 
 class Solution {
     public int findMaximizedCapital(int k, int W, int[] Profits, int[] Capital) {
         int n = Profits.length;
