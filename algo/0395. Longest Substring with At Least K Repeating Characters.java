@@ -142,3 +142,14 @@ class Solution
         return end - start;
     }
 }
+
+
+/*
+    Sliding window solution:
+    https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/solution/
+    time: n*26
+    
+    logic:
+    create a sliding window based on "no. of unique char" allowed in a window
+*/
+

@@ -86,27 +86,28 @@ class Solution {
         }
         int n = costs.length;
         int minCost = Integer.MAX_VALUE;
-        int[] cache = new int[3];
-        int[] tempCache;
-        cache = costs[0];
+        int currCost;
+        int[] prevDP = new int[3];
+        int[] currDP;
+        prevDP = costs[0];
         
         for (int house = 1; house < n; house++) {
-            tempCache = new int[3];
-            Arrays.fill(tempCache, Integer.MAX_VALUE);
+            currDP = new int[3];
+            Arrays.fill(currDP, Integer.MAX_VALUE);
             
             for (int color = 0; color < 3; color++) {
                 for (int prevColor = 0; prevColor < 3; prevColor++) {
                     if (color != prevColor) {
-                        tempCache[color] = Math.min(tempCache[color], 
-                                                    costs[house][color] + cache[prevColor]);
+                        currCost = costs[house][color] + prevDP[prevColor];
+                        currDP[color] = Math.min(currDP[color], currCost);
                     }
                 }
             }
-            cache = tempCache;
+            prevDP = currDP;
         }
         
         for (int color = 0; color < 3; color++) {
-            minCost = Math.min(minCost, cache[color]);
+            minCost = Math.min(minCost, prevDP[color]);
         }
         return minCost;
     }

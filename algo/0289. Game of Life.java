@@ -37,19 +37,13 @@ In this question, we represent the board using a 2D array. In principle, the boa
     Ques: board needs to be updated simultaneously
     You cannot update some cells first and then use their updated values to update other cells.
     
-    Solutions:
-        1) time: r*c, space: r*c
-        2) time: r*c, space: 1
+    1) time: r*c, space: r*c
+    2) time: r*c, space: 1
     
-    Follow up: Infinite board (large matrix)
-        problems:
-            1) more time to compute
-            2) not possible to store infinite board in memory
-            3) if live cells are lesser, then sparse matrix takes more space 
-        solution:
-            1) use multi-threading, parallel processing
-            2) store it in disk and always have 3 rows in memory (prev, curr, next)
-            3) store only live cells into a new matrix
+    Follow-up: What is board is of infinite length?
+    Solution:
+        1) if it is a sparse matrix, store the position of live cells alone
+        2) if it doesn't fit into memory, then fetch 3 rows alone from the disk, because we need to check only 8 positions.
 */
 
 // in-place algo
@@ -82,11 +76,11 @@ class Solution {
                 }
                 if (board[i][j] == dead) { 
                     if (neighCount == 3) {
-                        board[i][j] = newLive;                // dead to newLive
+                        board[i][j] = newLive;                // dead to newLive (0 to 1)
                     }
                 } else if (board[i][j] == live) {
                     if (neighCount < 2 || neighCount > 3) {
-                        board[i][j] = newDead;                // live to newDead
+                        board[i][j] = newDead;                // live to newDead (1 to 0)
                     }
                 }
             }

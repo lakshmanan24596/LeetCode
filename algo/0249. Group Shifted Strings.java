@@ -55,12 +55,8 @@ class Solution {
                 key += (char) (((str.charAt(i) - str.charAt(i - 1)) + 26) % 26);    // main logic
             }
             
-            List<String> currGroup = groups.get(key);
-            if (currGroup == null) {
-                currGroup = new ArrayList<String>();
-                groups.put(key, currGroup);
-            }
-            currGroup.add(str);
+            groups.putIfAbsent(key, new ArrayList<String>());
+            groups.get(key).add(str);
         }
         return new ArrayList<List<String>>(groups.values());
     }
