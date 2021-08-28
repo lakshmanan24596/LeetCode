@@ -27,7 +27,7 @@ All words[i] are unique.
 
 
 /*
-    logic: BACKTRACKING
+    logic: Backtracking, Trie, Cache
     https://leetcode.com/problems/word-squares/discuss/91333/Explained.-My-Java-solution-using-Trie-126ms-1616
     we can find a symentric property in the output word square
     

@@ -62,7 +62,7 @@ class Codec {
             }
             sb.append(nullDelimeter);          
         }
-        return sb.toString();
+        return sb.toString();   // serialized string: 1# 2345# # 67#...
     }
 	
     public Node deserialize(String data) {

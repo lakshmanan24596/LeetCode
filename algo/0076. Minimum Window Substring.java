@@ -13,9 +13,7 @@ If there is such window, you are guaranteed that there will always be only one u
 class Solution 
 {
     public String minWindow(String text, String patt) 
-    {
-        // char --> fixed 256 letetrs.. so always use ARRAY[256], instead of hashMap
-        
+    {       
         if(patt.length() > text.length())
             return "";
         
@@ -30,8 +28,7 @@ class Solution
         int currStart = 0, start = -1;
         int currWindowSize, minWindowSize = Integer.MAX_VALUE;         
         
-        // fill pattMap
-        for(int i = 0; i < pattLength; i++)
+        for(int i = 0; i < pattLength; i++)                 // fill pattMap
         {
             index = pattInput[i];
             pattMap[index]++;
@@ -42,24 +39,21 @@ class Solution
         {
             index = textInput[i];
             textMap[index]++;           
-            if(textMap[index] <= pattMap[index])
+            if(textMap[index] <= pattMap[index])            // main logic
                 matchedCount++;
             
-            // window found
-            if(matchedCount == pattLength) 
+            if(matchedCount == pattLength)                  // window found
             {
-                // remove starting characters
                 index = textInput[currStart];
-                while(textMap[index] > pattMap[index])
+                while(textMap[index] > pattMap[index])      // main logic
                 {
-                    textMap[index]--;   // remove front
+                    textMap[index]--;                       // remove starting characters
                     currStart++;
                     index = textInput[currStart];
                 }
                 
-                // update minWindowSize and start
                 currWindowSize = i - currStart + 1;
-                if(currWindowSize <= minWindowSize)
+                if(currWindowSize <= minWindowSize)         // update minWindowSize and start
                 {
                     minWindowSize = currWindowSize;
                     start = currStart;
