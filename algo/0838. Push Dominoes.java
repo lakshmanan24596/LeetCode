@@ -29,6 +29,9 @@ String dominoes contains only 'L', 'R' and '.'
     'L......L' => 'LLLLLLLL'
     'R......L' => 'RRRRLLLL' or 'RRR.LLL'
     'L......R' => 'L.....R'
+
+    Another approach:
+    calculate using force: https://leetcode.com/problems/push-dominoes/solution/
 */
 class Solution 
 {
