@@ -51,10 +51,8 @@ class Solution
                     j++;
                     k--;
                 }
-                
                 else if(sum < 0)            
                     j++;
-
                 else         
                     k--;
             }
