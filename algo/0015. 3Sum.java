@@ -19,7 +19,6 @@ class Solution
 {
     public List<List<Integer>> threeSum(int[] arr) 
     {
-        
         HashSet<Node> set = new HashSet<Node>();
         List<List<Integer>> output = new ArrayList<List<Integer>>();
         List<Integer> currOutput = null;
