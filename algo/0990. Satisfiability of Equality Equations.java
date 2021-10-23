@@ -81,6 +81,7 @@ class Solution {
             rank = new int[n];
             for (int i = 0; i < n; i++) {
                 parent[i] = i;
+                rank[i] = 1;
             }
         }
         

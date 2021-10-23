@@ -32,22 +32,23 @@ mat[i] is sorted in strictly increasing order.
         time: O(r * c * log(r))
         space: O(r)
         
-    3) hashmap
-        given array is in strictly increasing order, so no duplicates allowed in a row
-        iterate all elements and store of count of each element
-        if count of any element = no of rows, then that is the answer
-        time: O(r * c)
-        space: O(r * c)
-        
-        handling duplicates:
-        since each array is sorted, simply checking curr != prev skips the duplicates
-        
-    4) row positions
+    3) row positions
         exactly same as above, but without priority queue
         we can just track currMax and count alone
         refer: https://leetcode.com/problems/find-smallest-common-element-in-all-rows/solution/
         time: O(r * c)
-        space: O(1)
+        space: O(r)
+        
+    4) hashmap
+        given array is in strictly increasing order, so no duplicates allowed in a row
+        iterate all elements and store of count of each element
+        if count of any element = no of rows, then that is the answer
+        
+        handling duplicates:
+        since each array is sorted, simply checking curr != prev skips the duplicates
+        
+        optimization:
+        iterate reverse (column-wise), so that we can break the loop soon
 */
 
 class Solution {

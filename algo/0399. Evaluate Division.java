@@ -55,8 +55,11 @@ Ai, Bi, Cj, Dj consist of lower case English letters and digits.
         time = O(equations + (queries * equations))
         space = O(equations)
         
-    2) DSU
-        
+    2) DSU or DP
+        graph: a->b->c->d and e->b->c->d
+        query1: a/d
+        query2: e/d
+        we can see that b-c-d is common is both queries
 */
 
 class Solution {
@@ -75,7 +78,7 @@ class Solution {
             denominator = query.get(1);
             
             if (!graph.containsKey(numerator) || !graph.containsKey(denominator)) {
-                 equationResult[i] = -1.0;
+                equationResult[i] = -1.0;
             } else {
                 this.visited = new HashSet<String>();
                 equationResult[i] = getDivisionResult(numerator, denominator);

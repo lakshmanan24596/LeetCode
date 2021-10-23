@@ -10,11 +10,11 @@
         Note: This question is same as Longest Common Substring
         
         longest common sub-sequence:
-            equal     --> diagnol
+            equal     --> diagnol + 1
             not equal --> max(left, top)
             
         longest common sub-array:   
-            equal     --> diagnol
+            equal     --> diagnol + 1
             not equal --> 0
      
     3) HashMap + Binary search + Rolling hash using sliding window 
