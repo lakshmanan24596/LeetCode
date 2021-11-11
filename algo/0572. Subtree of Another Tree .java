@@ -45,6 +45,12 @@ Return false.
  *     }
  * }
  */
+
+
+/*
+    optimal O(S + T)
+    https://leetcode.com/problems/subtree-of-another-tree/discuss/102736/Java-Concise-O(n%2Bm)-Time-O(n%2Bm)-Space
+*/
 class Solution 
 {
     public boolean isSubtree(TreeNode s, TreeNode t) 
@@ -52,7 +58,10 @@ class Solution
         if(s == null) {
             return false;
         }
-        return isIdentical(s, t) || isSubtree(s.left, t) || isSubtree(s.right, t);  // pre-order traversal
+        if(isIdentical(s, t)) {
+            return true;
+        }
+        return isSubtree(s.left, t) ? true : isSubtree(s.right, t); 
     }
     
     public boolean isIdentical(TreeNode s, TreeNode t) 
@@ -60,9 +69,9 @@ class Solution
         if(s == null && t == null) {
             return true;
         }
-        if(s == null || t == null) {
+        if(s == null || t == null || s.val != t.val) {
             return false;
         }
-        return s.val == t.val && isIdentical(s.left, t.left) && isIdentical(s.right, t.right);
+        return isIdentical(s.left, t.left) && isIdentical(s.right, t.right);
     }
 }

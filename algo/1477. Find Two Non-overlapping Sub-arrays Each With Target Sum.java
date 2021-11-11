@@ -44,7 +44,7 @@ Constraints:
         
     1) prefix, suffix + sliding window
         time: 2n
-        space: n
+        space: 2n
         logic:
             prefix[]   = -1, -1, -1, 4, 2,  2,  2  --> iterating left to right
             suffix[]   =  2,  2,  2, 2, 3, -1, -1  --> iterating right to left
