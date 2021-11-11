@@ -83,15 +83,13 @@ class Solution {
         int ny1, ny2;                                               // next y1, next y2
         
         for (int i = -1; i <= 1; i++) {                             // 3 directions (leftBottom, bottom, rightBottom)
-            ny1 = y1 + i;
-            if (ny1 >= 0 && ny1 < n) {
-                for (int j = -1; j <= 1; j++) {
-                    ny2 = y2 + j;
-                    if (ny2 >= 0 && ny2 < n) {
-                        if (ny1 < ny2) {                            // main condition: both the robots should not cross
-                            currOutput = dfs(x + 1, ny1, ny2);
-                            output = Math.max(output, currOutput); 
-                        }
+            for (int j = -1; j <= 1; j++) { 
+                ny1 = y1 + i;
+                ny2 = y2 + j;
+                if (ny1 >= 0 && ny1 < n && ny2 >= 0 && ny2 < n) {
+                    if (ny1 < ny2) {                                // main condition: both the robots should not cross
+                        currOutput = dfs(x + 1, ny1, ny2);
+                        output = Math.max(output, currOutput); 
                     }
                 }
             }
