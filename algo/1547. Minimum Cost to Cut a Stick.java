@@ -110,7 +110,7 @@ class Solution {
         int currCost;
         
         for (int i = start + 1; i <= end - 1; i++) {
-            currCost = minCostUtil(start, i) + minCostUtil(i, end);     // main logic (left + curr)
+            currCost = minCostUtil(start, i) + minCostUtil(i, end);     // main logic (left + right)
             minCost = Math.min(minCost, currCost);
         }
         minCost += cutPoints.get(end) - cutPoints.get(start);           // main logic (current cut cost)
