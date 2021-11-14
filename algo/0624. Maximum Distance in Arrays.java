@@ -98,7 +98,7 @@ class Solution {
         
         for (int i = 1; i < n; i++) {
             array = arrays.get(i);
-            currDist = Math.max(max - array.get(0), array.get(array.size() - 1) - min);
+            currDist = Math.max(max - array.get(0), array.get(array.size() - 1) - min);     // main logic
             maxDist = Math.max(maxDist, currDist);
             
             min = Math.min(min, array.get(0));

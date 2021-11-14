@@ -57,15 +57,13 @@ The number of nodes in the tree is in the range [1, 104].
 
 
 /*
-    1) 2-pass algo
-        time: h + h + n ==> 2n
-        space: output = n, stack space = h
-        implementation: below solution
-    
-    2) 1-pass algo using PreOrder traversal and flag
-        time: n
-        space: output = n, stack space = h
-        implementation: refer - https://leetcode.com/problems/boundary-of-binary-tree/solution/
+    logic-1: pre order traversal
+        2 pass algo: below solution
+        1 pass algo: https://leetcode.com/problems/boundary-of-binary-tree/solution/
+        
+    logic-2: level order traversal
+        a) in all levels (except last), print the first and last node
+        b) in last level alone, print all nodes
 */
 class Solution {
     List<Integer> boundaryNodes;
@@ -89,7 +87,7 @@ class Solution {
         }
         boundaryNodes.add(root.val);
         if (root.left != null) {
-            printLeftBoundary(root.left);
+            printLeftBoundary(root.left);       // first check left and then right
         } else {
             printLeftBoundary(root.right);
         }
@@ -99,7 +97,7 @@ class Solution {
         if (root == null || isLeaf(root)) {
             return;
         }
-        if (root.right != null) {
+        if (root.right != null) {               // first check right and then left
             printRightBoundary(root.right);
         } else {
             printRightBoundary(root.left);
