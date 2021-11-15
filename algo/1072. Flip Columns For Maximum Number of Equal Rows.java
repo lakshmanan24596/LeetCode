@@ -36,6 +36,7 @@ matrix[i][j] is either 0 or 1.
         https://leetcode.com/problems/flip-columns-for-maximum-number-of-equal-rows/discuss/303758/My-java-solution-with-hashmap
         time: O(r*c)
         space: O(r*c)
+        we can just flip the rows and count the pattern occurrence instead of brainlessly flipping the columns
         
     3) Binary trie
         logic is same as above approach

@@ -134,7 +134,7 @@ class Solution {
         searchWord + products for processing
     Execution time:
         89 ms for trie
-        6 ms for sorting + sliding window
+        6 ms for sorting + shrinking window
 */
 /*
 class Solution {

@@ -48,9 +48,12 @@ class Solution {
             if (u != v) {
                 dsu.union(u, v);
                 minCost += connection[2];                           // main logic
+                if (dsu.connectedComponents == 1) {
+                    return minCost;
+                }
             }
         }
-        return (dsu.connectedComponents == 1) ? minCost : -1;       // main logic
+        return -1;
     }
 }
 
