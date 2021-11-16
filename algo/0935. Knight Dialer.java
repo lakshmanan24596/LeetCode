@@ -69,9 +69,8 @@ class Solution {
             return DP[currN][num];
         }
         long validJumpsCount = 0;
-        int[] jumpLocations = moves[num];
         
-        for (int nextJump : jumpLocations) {
+        for (int nextJump : moves[num]) {
             validJumpsCount += knightDialer(currN + 1, nextJump);       // main logic
             validJumpsCount %= mod;
         }
@@ -92,13 +91,11 @@ class Solution {
         int mod = 1_000_000_007;
         long[][] DP = new long[2][10];
         Arrays.fill(DP[0], 1);
-        int[] jumpLocations;
         long validJumpsCount = 0;
         
         for (int i = 0; i < N - 1; i++) {
             for (int num = 0; num < 10; num++) {
-                jumpLocations = moves[num];
-                for (int nextJump : jumpLocations) {
+                for (int nextJump : moves[num]) {
                     DP[1][nextJump] += DP[0][num];      // main logic
                     DP[1][nextJump] %= mod;
                 }

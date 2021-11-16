@@ -56,14 +56,17 @@ No two stones are at the same coordinate point.
         to separate x and y co-ordinate: (main logic)
             1) x = x and y = y + 10000 (or)
             2) x = x and y = ~y
+            
+        Implementation:
+        https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/discuss/197668/Count-the-Number-of-Islands-O(N)
 */
 class Solution {
-    public int removeStones(int[][] stones) {     // n^2 time solution (approach 1)
+    public int removeStones(int[][] stones) {
         int n = stones.length;
         DSU dsu = new DSU(n);
         int parentA, parentB;
         
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {               // n^2 time solution (approach 1)
             for (int j = i + 1; j < n; j++) {
                 if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
                     parentA = dsu.find(i);
@@ -76,11 +79,11 @@ class Solution {
         }
         int removedStones = 0;
         for(int i = 0; i < n; i++) {
-            if(dsu.parent[i] != i) {
+            if(dsu.parent[i] != i) {                // main logic
                 removedStones++;
             }
         }
-        return removedStones;   // number of components - connected components
+        return removedStones;                       // number of components - connected components
     }
     
     class DSU {
@@ -92,6 +95,7 @@ class Solution {
             this.rank = new int[n];
             for(int i = 0; i < n; i++) {
                 parent[i] = i;
+                rank[i] = 1; 
             }
         }
         
@@ -113,9 +117,3 @@ class Solution {
         }
     }
 }
-
-/*
-    approach-2 solution:
-    https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/solution/
-    https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/discuss/197668/Count-the-Number-of-Islands-O(N)
-*/
