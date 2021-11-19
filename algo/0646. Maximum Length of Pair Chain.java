@@ -12,32 +12,31 @@ Note:
 The number of given pairs will be in the range [1, 1000].
 */
 
+
+
+/*
+    Logic: Greedy
+    Time: O(n*logn) and Space: O(1)
+*/
 class Solution
 {
-    /*
-        Logic: Greedy
-        Time: O(n*logn) and Space: O(1)
-    */
     public int findLongestChain(int[][] pairs) 
     {
         int longestChainLength = 0;
         if(pairs == null || pairs.length == 0) {
             return longestChainLength;
         }
-        
-        Arrays.sort(pairs, new Comparator<int[]>() {
-            public int compare(int a[], int b[]) {
-                return a[1] - b[1]; // main logic
-            }
-        });
-        
-        int min = Integer.MIN_VALUE;
+        Arrays.sort(pairs, (a, b) -> (a[1] - b[1]));  // ascending sort by endTime
+        int prevEnd = Integer.MIN_VALUE;
+        int currStart;
+                    
         for(int[] currPair: pairs) 
         {
-            if(min < currPair[0])   // main logic: similar to b < c in DP algo
+            currStart = currPair[0];
+            if(currStart > prevEnd)                   // main logic
             {
                 longestChainLength++;
-                min = currPair[1];
+                prevEnd = currPair[1];
             }
         }
         return longestChainLength;
@@ -45,9 +44,10 @@ class Solution
 }
 
 /*
-logic: similar to Longest Increasing Subsequence
-Time: O(n^2) and Space: O(n) and logic: DP
-
+    logic: similar to Longest Increasing Subsequence
+    Time: O(n^2) and Space: O(n) and logic: DP
+*/
+/*
 class Solution 
 {
     public int findLongestChain(int[][] pairs) 
@@ -61,19 +61,6 @@ class Solution
                 return (a[0] == b[0]) ? a[1] - b[1] : a[0] - b[0];
             }
         });
-          
-        // for(int i = 0; i < size; i++)
-        // {
-        //     DP[i] = 1;
-        //     for(int j = 0; j < i; j++)
-        //     {
-        //         b = pairs[j][1];
-        //         c = pairs[i][0];
-        //         if(b < c && DP[j] + 1 > DP[i]) {
-        //             DP[i] = DP[j] + 1;
-        //         }
-        //     }
-        // }
         
         for(int i = 0; i < size; i++)
         {

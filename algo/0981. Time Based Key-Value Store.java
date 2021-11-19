@@ -60,13 +60,10 @@ class TimeMap {
     public String get(String key, int timestamp) {
         TreeMap<Integer, String> currKeyData = data.get(key);
         if (currKeyData == null) {
-            return null;
-        }
-        Map.Entry<Integer, String> reqDataEntry = currKeyData.floorEntry(timestamp);    // main logic
-        if (reqDataEntry == null) {
             return "";
         }
-        return reqDataEntry.getValue();
+        Map.Entry<Integer, String> reqDataEntry = currKeyData.floorEntry(timestamp);
+        return (reqDataEntry == null) ? "" : reqDataEntry.getValue();
     }
 }
 

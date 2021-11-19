@@ -41,28 +41,29 @@ Constraints:
     2) DP: n*n*k --> state of DP are startIndex, endIndex, k
     3) sliding window: n time, 1 space
     
-    Logic: instead of checking the starting and ending to get maxVal,
-           we can check the middle to get wanted values
-           now output = totalSum - wanted values in middle      // main logic
+    logic:
+    output = totalSum - minSumInMiddle
+             where minSumInMiddle = find min sum subarray of length n - k
 */
 
 class Solution {
     public int maxScore(int[] cardPoints, int k) {
-        int totalSum = 0;
+        int i, totalSum = 0;
         int n = cardPoints.length;
-        int windowSize = n - k;                     // sliding window size
-        for (int i = 0; i < windowSize; i++) {
+        int middleSize = n - k;
+        
+        for (i = 0; i < middleSize; i++) {
             totalSum += cardPoints[i];
         }
         
-        int currWindowSum = totalSum;
+        int currSum = totalSum;
         int minSumInMiddle = totalSum;
-        for (int i = windowSize; i < n; i++) {
-            currWindowSum += cardPoints[i];
-            currWindowSum -= cardPoints[i - windowSize];
-            minSumInMiddle = Math.min(minSumInMiddle, currWindowSum);
+        for (; i < n; i++) {
+            currSum += cardPoints[i];
+            currSum -= cardPoints[i - middleSize];
+            minSumInMiddle = Math.min(minSumInMiddle, currSum);
             totalSum += cardPoints[i];
         }
-        return totalSum - minSumInMiddle;           // main logic
+        return totalSum - minSumInMiddle;
     }
 }

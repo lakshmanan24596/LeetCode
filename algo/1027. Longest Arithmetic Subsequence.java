@@ -36,8 +36,7 @@ class Solution {
     public int longestArithSeqLength(int[] A) {
         int output = 0;
         int diff, count;
-        
-        Map<Integer, Integer>[] mapArr = new HashMap[A.length]; // (diff, count) for each array index
+        Map<Integer, Integer>[] mapArr = new HashMap[A.length]; // arr of (diff, count)
         for (int i = 0; i < A.length; i++) {
             mapArr[i] = new HashMap<Integer, Integer>();
         }
@@ -45,15 +44,14 @@ class Solution {
         for (int i = 1; i < A.length; i++) {
             for (int j = 0; j < i; j++) {
                 diff = A[i] - A[j];
-                count = mapArr[j].getOrDefault(diff, 0);
-                mapArr[i].put(diff, count + 1);
-                output = Math.max(output, count + 1);
+                count = mapArr[j].getOrDefault(diff, 0) + 1;
+                mapArr[i].put(diff, count);
+                output = Math.max(output, count);
             }
         }
         return output + 1;
     }
 }
-
 
 /*
 // Instead of hashmap we can use 2D array of size [n][(2*500)+1] 

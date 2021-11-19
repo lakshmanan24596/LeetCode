@@ -35,14 +35,18 @@ tasks[i] is upper-case English letter.
 The integer n is in the range [0, 100].
 */
 
+
+
+/*
+    logic: Greedy + maxHeap --> complete the most occuring task first
+    similar ques: 
+        https://www.geeksforgeeks.org/rearrange-characters-string-no-two-adjacent/
+        https://leetcode.com/problems/reorganize-string/
+*/
+/*
 class Solution 
 {
-    /*
-        logic: Greedy + maxHeap --> complete the most occuring task first
-        similar ques: https://www.geeksforgeeks.org/rearrange-characters-string-no-two-adjacent/ and https://leetcode.com/problems/reorganize-string/
-    */
-    
-    public int leastInterval(char[] tasks, int coolDownTime) // Time: N*logN and Space: N
+    public int leastInterval(char[] tasks, int coolDownTime) 
     {
         int taskCount = tasks.length;
         int outputArrSize = taskCount + ((taskCount - 1) * coolDownTime);   // output arr size in worst case
@@ -57,7 +61,7 @@ class Solution
         
         while(!pq.isEmpty())
         {
-        	Node currNode = pq.poll();
+            Node currNode = pq.poll();
             char currTask = currNode.ch;
             int lastIndex = taskLastIndex[currTask - 'A'];
             
@@ -71,12 +75,13 @@ class Solution
             
             if(lastIndex == -1) {
                 firstFreeIndex = outputIndex + 1;
-            }            
+            }
+            
             if(--currNode.count > 0) {
-            	pq.add(currNode);
+                pq.add(currNode);
             }
         }
-         
+            
         for(int i = outputArrSize - 1; i >= 0; i--)
         {
             if(outputArr[i] != null) {  // index of last completed task is the output
@@ -97,7 +102,7 @@ class Solution
         
         PriorityQueue<Node> pq = new PriorityQueue<Node>(new Comparator<Node>() {
             public int compare(Node a, Node b) {
-                return b.count - a.count;	// max heap (descending order)
+                return b.count - a.count;   // max heap (descending order)
             }
         });
         for(Map.Entry<Character, Integer> entry : map.entrySet()) 
@@ -109,20 +114,28 @@ class Solution
     
     class Node
     {
-    	char ch;
-    	int count;
-    	Node(char ch, int count) {
-    		this.ch = ch;
-    		this.count = count;
-    	}
+        char ch;
+        int count;
+        Node(char ch, int count) {
+            this.ch = ch;
+            this.count = count;
+        }
     }
 }
-
+*/
+    
 
 /*
+    refer approach 1 video in:
+    https://leetcode.com/problems/task-scheduler/solution/
+    
+    time: n
+    space: n
+    logic: math, greedy
+*/
 class Solution 
 {
-    public int leastInterval(char[] tasks, int n)  // Time: N and Space: 26
+    public int leastInterval(char[] tasks, int coolingPeriod)  // Time: N and Space: 26
     {    
         int[] frequencies = new int[26];
         for(int i = 0; i<tasks.length; i++){
@@ -141,8 +154,7 @@ class Solution
             }
         }
         
-        int interval = (maxFrequency - 1) * (n + 1) + numOfMaxFrequency;
+        int interval = ((maxFrequency - 1) * (coolingPeriod + 1)) + numOfMaxFrequency;    
         return Math.max(tasks.length, interval);
     }
 }
-*/

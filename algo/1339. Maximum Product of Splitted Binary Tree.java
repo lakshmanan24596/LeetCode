@@ -43,7 +43,7 @@ Each node's value is between [1, 10000].
 
 class Solution 
 {
-    long currProd, maxProd = 0, totalSum;
+    long maxProd = 0, totalSum;
     
     public int maxProduct(TreeNode root) 
     {
@@ -71,7 +71,7 @@ class Solution
         int rightSum = findMaxProd(root.right);
         
         int returnVal = leftSum + rightSum + root.val;
-        currProd = returnVal * (totalSum - returnVal);      // main logic
+        long currProd = returnVal * (totalSum - returnVal);      // main logic
         maxProd = Math.max(maxProd, currProd);
         return returnVal;
     }
