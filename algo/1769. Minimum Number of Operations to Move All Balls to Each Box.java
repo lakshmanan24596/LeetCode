@@ -24,74 +24,21 @@ boxes[i] is either '0' or '1'.
 */
 
 
-
 /*
-    Logic: Math
-        consider example 2 --> index of 1 are 2, 4, 5
-        2 + 4 + 5
-        1 + 3 + 4
-        0 + 2 + 3
-        1 + 1 + 2
-        2 + 0 + 1
-        3 + 1 + 0
-        we can see that the values keep on decreases and then increases
-        use math to calculate this
-
-    Implementation:
-        operations = 2 + 4 + 5 = 11
-        noOfBalls = 3
-        0) 11 + 0
-        1) 8 + 0
-        2) 5 + 0
-        3) 2 + 2
-        4) -1 + 4
-        5) -4 + 8
-        
-    Complexity:
-        time: 2n
-        space: n for output
+    Question explanation
+    consider example 2 --> index of 1 are 2, 4, 5
+    output:
+        2 + 4 + 5 = 11
+        1 + 3 + 4 = 8
+        0 + 2 + 3 = 5
+        1 + 1 + 2 = 4
+        2 + 0 + 1 = 3
+        3 + 1 + 0 = 4
 */
 /*
-class Solution {
-    public int[] minOperations(String boxes) {
-        int noOfBoxes = boxes.length();
-        int noOfBalls = 0;
-        int[] minOperations = new int[noOfBoxes];
-        int operations = 0;
-        int addition = 0;
-        int processedBalls = 0;
-        
-        for (int i = 0; i < noOfBoxes; i++) {
-            if (boxes.charAt(i) == '1') {
-                operations += i;
-                noOfBalls++;
-            }
-        }
-        
-        for (int i = 0; i < noOfBoxes; i++) {
-            minOperations[i] = operations + addition;       // main logic
-            
-            if (boxes.charAt(i) == '1') {
-                processedBalls++;
-            }
-            addition += 2 * processedBalls;
-            operations -= noOfBalls;
-        }
-        return minOperations;
-    }
-}
-*/
-
-
-/*
-    logic: LTR + RTL, greedy
+    LTR + RTL, greedy
     time: 2n
     space: n for output
-    
-    example-2:
-    left  = 0, 0, 0, 1, 2, 4
-    right = 11, 8, 5, 3, 1, 0
-    ans = left + right
 */
 class Solution {
     public int[] minOperations(String boxes) {
