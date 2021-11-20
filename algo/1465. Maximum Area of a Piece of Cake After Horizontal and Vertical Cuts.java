@@ -40,7 +40,7 @@ It is guaranteed that all elements in verticalCuts are distinct.
        output = maxHoriDist * maxVertDist
 */
 class Solution {
-    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {    // time: hc*log(hc) + vc*log(vc)
+    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {    // time: hlog(h) + vlog(v) 
         Arrays.sort(horizontalCuts);
         Arrays.sort(verticalCuts);
         long maxHoriDist = Math.max(horizontalCuts[0], h - horizontalCuts[horizontalCuts.length - 1]);

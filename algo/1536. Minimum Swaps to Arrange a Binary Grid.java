@@ -27,16 +27,13 @@ grid[i][j] is 0 or 1
 
 
 /*
-    step 1: 
-        find trailing zeros in each row
-        for ex1: trailing zeros = {0, 1, 2}
-        required training zeros = {2, 1, 0}
-    
-    step 2:
-        sort training zeros array and find noOfSwaps
+    refer hint:
+        1) For each row of the grid calculate the most right 1 in the grid in the array maxRight.
+        2) To check if there exist answer, sort maxRight and check if maxRight[i] ≤ i for all possible i's.
+        3) If there exist an answer, simulate the swaps.
         
-    time: n^2
-    space: n
+        ex:1 --> maxRight = [3,2,1] --> after sorting --> [1,2,3]
+        now simulate the swaps
 */
 
 class Solution {

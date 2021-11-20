@@ -31,25 +31,21 @@ s[i] == '0' or s[i] == '1'
 */
 
 
-// Time: n, Space: 1
+// Time: n, space: 1
 class Solution {
     public int numSub(String s) {
-        long currCount = 0;
+        long oneCount = 0;
         long output = 0;
         int mod = 1_000_000_007;
         
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '1') {
-                currCount++;
-            } else if (currCount > 0) {
-                output += (currCount * (currCount + 1)) / 2;
+                oneCount++;
+                output += oneCount;     // main logic
                 output %= mod;
-                currCount = 0;
+            } else {
+                oneCount = 0;
             }
-        }
-        if (currCount > 0) {
-            output += (currCount * (currCount + 1)) / 2;
-            output %= mod;
         }
         return (int) output;
     }
