@@ -30,19 +30,18 @@ At most 3 * 104 calls will be made to update and sumRange.
 
 /*
     Time for constuct, getRangeSum, update:
-        1) Brute force   ==> Time: 1, n, 1           and Space: 1
-        2) DP prefix sum ==> Time: n, 1, n           and Space: n
-        3) Segment tree  ==> Time: n, logn, logn     and Space: n
-        4) Fenwick tree  ==> Time: nlogn, logn, logn and Space: n 
-    
+        1) Brute force   ==> Time: 1, n, 1       and Space: 1
+        2) DP prefix sum ==> Time: n, 1, n       and Space: n
+        3) Segment tree  ==> Time: n, logn, logn and Space: n
+        4) Fenwick tree  ==> 
+        
     Segment tree:
-        Implemented using "divide and conquer" technique
+        Implemented using divide and conquer technique
         Each node will have left, right, index
         root node: (left, right, index) = (0, n-1, 0)
     
-    Implementation: 
-    1) array --> https://www.youtube.com/watch?v=0l3xN3BpxHg&feature=emb_title
-    2) segment tree node --> https://leetcode.com/problems/range-sum-query-mutable/discuss/75724/17-ms-Java-solution-with-segment-tree
+    Below solution of segment tree is implemented using array
+    We can implement also using segmentTree node
         class SegmentTreeNode {
             int start, end;
             SegmentTreeNode left, right;
@@ -56,6 +55,7 @@ At most 3 * 104 calls will be made to update and sumRange.
             }
         }
 */
+
 class NumArray {                // Segment tree implementation
     int[] tree, nums;
     int n;
@@ -133,9 +133,72 @@ class NumArray {                // Segment tree implementation
         return (left + right) / 2;
     }
 }
+
+
 /**
  * Your NumArray object will be instantiated and called as such:
  * NumArray obj = new NumArray(nums);
  * obj.update(index,val);
  * int param_2 = obj.sumRange(left,right);
  */
+/*
+class NumArray {
+    int[] tree;
+    int size;
+    int[] original;
+    public NumArray(int[] nums) {
+        size = nums.length;
+        tree = new int[size * 4];
+        original = new int[size];
+        for (int i = 0; i < size; i++) {
+            original[i] = nums[i];
+        }
+        build(0, size - 1, 1, nums);
+    }
+    
+    public void update(int index, int val) {
+        updateTree(index, val, 0, size - 1, 1);
+        original[index] = val;
+    }
+    
+    public int sumRange(int left, int right) {
+        return search(0, size - 1, left, right, 1);
+    }
+    
+    private int build (int left, int right, int index, int[] nums) {
+        if (left > right) return 0;
+        if (left == right) {
+            tree[index] = nums[left];
+            return tree[index];
+        }
+        int mid = left + (right - left) / 2;
+        tree[index] = build(left, mid, 2 * index, nums) + build(mid + 1, right, 2 * index + 1, nums);
+        return tree[index];
+    }
+    
+    private int search(int left, int right, int i, int j, int index) {
+        if (left == i && right == j) return tree[index];
+        if (right < i || left > j) return 0;
+        int mid = left + (right - left) / 2;
+        int leftRes = search(left, mid, Math.max(i, left), Math.min(j, mid), 2 * index);
+        int rightRes = search(mid + 1, right, Math.max(i, mid + 1), Math.min(j, right), 2 * index + 1);
+        return leftRes + rightRes;
+    }
+    
+    private void updateTree(int index, int val, int left, int right, int treeIndex) {
+        if (left > right) return;
+        if (left == right) {
+            tree[treeIndex] = val;
+            return;
+        }
+        tree[treeIndex] = tree[treeIndex] - original[index] + val;
+        int mid = left + (right - left) / 2;
+        if (index <= mid) {
+            updateTree(index, val, left, mid, treeIndex * 2);
+        }
+        else {
+            updateTree(index, val, mid + 1, right, treeIndex * 2 + 1);
+        }
+    }
+}
+*/

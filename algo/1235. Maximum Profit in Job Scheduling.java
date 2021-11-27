@@ -73,7 +73,8 @@ class Solution {
         }
         
         int max = 0;
-        for(int next = binarySearch(curr + 1, n - 1, arr[curr].endTime); next < n; next++) {
+        int start = binarySearch(curr + 1, n - 1, arr[curr].endTime);
+        for(int next = start; next < n; next++) {
             max = Math.max(max, recur(next)); 
         }
         return DP[curr] = arr[curr].profit + max;
@@ -128,13 +129,13 @@ class Solution {
         Arrays.sort(arr, (a, b) -> a.startTime - b.startTime);
         
         DP[n - 1] = arr[n - 1].profit;
-        for(int i = n - 2; i >= 0; i--) {
+        for(int i = n - 2; i >= 0; i--) {                       // main logic: iterate from reverse
             recur(i);
         }
         return DP[0];
     }
     
-    public int recur(int curr) {   // main logic: DP state --> start with curr index
+    public int recur(int curr) {
         if(curr >= n) {
             return 0;
         }
