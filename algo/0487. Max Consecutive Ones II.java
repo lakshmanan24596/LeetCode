@@ -22,7 +22,6 @@ Could you solve it efficiently?
 */
 
 
-
 /*
     2-pointer technique
     time: n

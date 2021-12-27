@@ -54,7 +54,7 @@ class Solution {
     public int shortestWay(String source, String target) {
         int[][] invertedIndex = new int[26][source.length()];
         int shortestWay = 1;
-        int sourceIndex, targetIndex
+        int sourceIndex, targetIndex;
         
         for (int i = 0; i < 26; i++) {
             sourceIndex = -1;
