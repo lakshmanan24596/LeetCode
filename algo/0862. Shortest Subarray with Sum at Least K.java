@@ -44,11 +44,11 @@ class Solution {
     public int shortestSubarray(int[] nums, int k) {
         int n = nums.length;
         Deque<Integer> deque = new LinkedList<Integer>();   // monotonic increasing deque
-        int[] prefixSum = new int[n + 1];
+        long[] prefixSum = new long[n + 1];
         int currOutput, output = Integer.MAX_VALUE;
         
         for (int i = 0; i < n; i++) {
-            prefixSum[i + 1] = prefixSum[i] + nums[i];
+            prefixSum[i + 1] = prefixSum[i] + (long) nums[i];
         }
         for (int i = 0; i <= n; i++) {
             while (!deque.isEmpty() && prefixSum[i] < prefixSum[deque.getLast()]) {         // keep in increasing order
