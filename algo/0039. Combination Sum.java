@@ -26,15 +26,14 @@ A solution set is:
 */
 
 
-class Solution 
-{
-    /*
-        Recursion    --> O(n ^ target)
-        Memorization --> O(n * target) 
-        (target involved, because one candidate can be used many times)
-    */
+/*
+    Recursion    --> O(n ^ target)
+    Memorization --> O(n * target) 
+    (target involved, because one candidate can be used many times)
+*/
     
-    /*
+/*
+class Solution {
     int[] candidates;
     List<Integer> currOutput = new ArrayList<Integer>();
     List<List<Integer>> output = new ArrayList<List<Integer>>();
@@ -66,9 +65,13 @@ class Solution
             }
         }
     }
-    */
-    
-    // DP memorization
+}
+*/
+
+
+// DP memorization
+class Solution 
+{   
     int[] candidates;
     HashMap<Integer, List<List<Integer>>> DP = new HashMap<Integer, List<List<Integer>>>(); // key = target, value = List<List<>> output
     
