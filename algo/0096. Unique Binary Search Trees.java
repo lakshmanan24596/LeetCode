@@ -39,28 +39,36 @@ Given n = 3, there are a total of 5 unique BST's:
 */        
 
 
-// recursion
-/*
+// memo O(n * n)
 class Solution {
+    Integer[] memo;
+    
     public int numTrees(int n) {
-        return catalanRecur(n);
+        if (n < 1) {
+            return 0;
+        }
+        memo = new Integer[n + 1];
+        return numTreesUtil(n);
     }
     
-    public int catalanRecur(int n) {
+    public int numTreesUtil(int n) {
         if (n <= 1) {
             return 1;
         }
-        int result = 0;
-        
-        for (int i = 0; i < n; i++) {
-            result += catalanRecur(i) * catalanRecur(n - 1 - i);
+        if (memo[n] != null) {
+            return memo[n];
         }
-        return result;
+        int count = 0;
+        
+        for (int i = 1; i <= n; i++) {
+            count += numTreesUtil(i - 1) * numTreesUtil(n - i);   // main logic
+        }
+        return memo[n] = count;
     }
-}
-*/
+}     
 
 
+/*
 // DP
 class Solution {
     public int numTrees(int n) {
@@ -83,3 +91,4 @@ class Solution {
         return DP[n];
     }
 }
+*/
