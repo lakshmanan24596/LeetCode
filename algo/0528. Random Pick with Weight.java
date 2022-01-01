@@ -5,7 +5,7 @@
     1) linear search:
         time: 1
         space: sum
-    2) binary search:
+    2) prefix sum + binary search:
         time: logn
         space: n, which is space optimized
 */
