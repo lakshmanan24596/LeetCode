@@ -37,8 +37,13 @@ Note:
         space: k
         
     3) quick select:
-        time: n average and n^2 worst case
+        time: n or n^2
         space: 1
+        
+    4) binary search on answer range:
+        time: n or n*logn
+        space: n
+        refer: https://leetcode.com/problems/k-closest-points-to-origin/solution/
         
     getDistance();
         returns the Euclidean distance of a point from the origin
@@ -46,6 +51,7 @@ Note:
         distance = Math.sqrt(((x2-x1)^2) + ((y2-y1)^2))
         x1,y1 is 0,0 which is origin and x2,y2 is curr point
 */
+
 
 /*
 class Solution {
@@ -93,11 +99,11 @@ class Solution {
     
     public void quickSelect(int left, int right) {
         while (left <= right) {
-            int pivot = partition(left, right);
+            int pivot = quickSort(left, right);
             if (pivot == k) {
                 return;
             }
-            else if (pivot < k) {
+            else if (k > pivot) {
                 left = pivot + 1;
             } else {
                 right = pivot - 1;
@@ -105,7 +111,7 @@ class Solution {
         }
     }
     
-    public int partition(int left, int right) {
+    public int quickSort(int left, int right) {
         int i = left, j = right;
         int pivot = left;
         

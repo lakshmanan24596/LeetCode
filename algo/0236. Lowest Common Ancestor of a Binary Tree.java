@@ -18,6 +18,7 @@ All of the nodes' values will be unique.
 p and q are different and both values will exist in the binary tree.
 */
 
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -27,33 +28,30 @@ p and q are different and both values will exist in the binary tree.
  *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution 
-{
+class Solution {
     boolean foundOutput = false;
-    
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) 
-    {        
-        if(root == null)
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null) {
             return null;
-        
-        if(root.val == p.val || root.val == q.val)  // both p and q will always exist in the tree   
+        }
+        if(root.val == p.val || root.val == q.val) { // both p and q will always exist in the tree   
             return root;
-        
+        } 
         TreeNode left = lowestCommonAncestor(root.left, p, q);
-        if(foundOutput)                             // if we found answer in leftSide, then no need to check in rightSide 
+        if(foundOutput) {                            // if we found answer in leftSide, then no need to check in rightSide 
             return left;
+        }
         TreeNode right = lowestCommonAncestor(root.right, p, q);
                       
-        if(left != null && right != null)
-        {
+        if(left != null && right != null) {
             foundOutput = true;
             return root; 
-        } 
-        else if(left == null && right == null)
+        } else if(left == null && right == null) {
             return null;  
-        else if(left != null)
-            return left;              
-        else // right != null
+        } else if(left != null) {
+            return left;      
+        } else {                                     // right != null
             return right;
+        }
     }
 }
