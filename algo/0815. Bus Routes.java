@@ -56,12 +56,8 @@ class Solution {
             noOfStops = routes[i].length;
             for (int j = 0; j < noOfStops; j++) {
                 int currStop = routes[i][j];
-                List<Integer> busList = stopVsBusMap.get(currStop);
-                if (busList == null) {
-                    busList = new ArrayList<Integer>();
-                    stopVsBusMap.put(currStop, busList);
-                }
-                busList.add(i);
+                stopVsBusMap.putIfAbsent(currStop, new ArrayList<Integer>());
+                stopVsBusMap.get(currStop).add(i);
             }
         }
         
@@ -74,13 +70,16 @@ class Solution {
         while (!busQueue.isEmpty()) {                           // process queue
             minBusNeeded++;
             int busQueueSize = busQueue.size();
+            
             while (busQueueSize-- > 0) {
                 int bus = busQueue.remove();
                 int[] stops = routes[bus];
+                
                 for (int stop : stops) {
                     if (stop == target) {
                         return minBusNeeded;
                     }
+                    
                     List<Integer> neighBuses = stopVsBusMap.get(stop);
                     for (int neighBus : neighBuses) {
                         if (!visitedBuses[neighBus]) {
