@@ -13,53 +13,49 @@ Note:
 You may assume that you have an infinite number of each kind of coin.
 */
 
-class Solution 
-{    
-//     recursion, memorization, tabulation
-    
-//     int[] coins, DP;    
+class Solution {
+  int[] coins;
+  Integer[] DP;
+
+  public int coinChange(int[] coins, int amount) {
+    this.coins = coins;
+    this.DP = new Integer[amount+1];
+    DP[0] = 0;      // base case for recursion: if (amount == 0) then return 0;
+    int output = coinChangeUtil(amount);
+    return ((output != Integer.MAX_VALUE - 1) ? output : -1);
+  }
+
+  public int coinChangeUtil(int amount) {
+    if(DP[amount] != null) {
+      return DP[amount];
+    }
+        
+    int minVal = Integer.MAX_VALUE - 1;
+    for(int i = 0; i < coins.length; i++) {
+        if(coins[i] <= amount) {
+            minVal = Math.min(minVal, 1 + coinChangeUtil(amount - coins[i]));
+        }
+    }
+    return DP[amount] = minVal;
+  }
+}  
+
+ 
+// tabulation
+// time = nm and space = m
+
 //     public int coinChange(int[] coins, int amount) 
-//     {   
-//         this.coins = coins;
-//         this.DP = new int[amount+1];
-        
-//         for(int i = 1; i <= amount; i++)         // DP[0] = 0 by default
-//             DP[i] = -1;
-        
-//         int output = coinChangeUtil(amount);
-//         return ((output != Integer.MAX_VALUE - 1) ? output : -1);
-//     }
-    
-//     public int coinChangeUtil(int amount)
 //     {
-//         // if(amount == 0)                       // no need, because DP[0] = 0;
-//         //     return 0; 
-    
-//         if(DP[amount] != -1)
-//             return DP[amount];
+//         //Arrays.sort(coins);               // no need sorting
         
-//         int minVal = Integer.MAX_VALUE - 1;
+//         int[] DP = new int[amount+1];              
+//         for(int i = 1; i <= amount; i++)    // DP[0] = 0; so start from 1
+//             DP[i] = Integer.MAX_VALUE - 1;
         
 //         for(int i = 0; i < coins.length; i++)
-//             if(coins[i] <= amount)
-//                 minVal = Math.min(minVal, 1 + coinChangeUtil(amount - coins[i]));
-        
-//         return DP[amount] = minVal;
-//     }
+//             for(int j = coins[i]; j <= amount; j++)
+//                 DP[j] = Math.min(DP[j], 1 + DP[j - coins[i]]);
     
-    
-    // Tabulation --> time = nm and space = m
-    public int coinChange(int[] coins, int amount) 
-    {
-        //Arrays.sort(coins);                       // no need sorting        
-        int[] DP = new int[amount+1];              
-        for(int i = 1; i <= amount; i++)            // DP[0] = 0 by default
-            DP[i] = Integer.MAX_VALUE - 1;
-        
-        for(int i = 0; i < coins.length; i++)
-            for(int j = coins[i]; j <= amount; j++)
-                DP[j] = Math.min(DP[j], 1 + DP[j - coins[i]]);
-    
-        return ((DP[amount] != Integer.MAX_VALUE - 1) ? DP[amount] : -1);
-    }    
-}
+//         return ((DP[amount] != Integer.MAX_VALUE - 1) ? DP[amount] : -1);
+//     }    
+// }
