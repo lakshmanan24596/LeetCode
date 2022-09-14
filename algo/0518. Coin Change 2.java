@@ -30,7 +30,6 @@ the answer is guaranteed to fit into signed 32-bit integer
 */
 
 
-
 /*
     Approach-1: 
         DP states: amount, coinIndex
@@ -71,13 +70,41 @@ class Solution
 
 
 /*
+    tabulation of above memorization code
+        DP states: amount, coinIndex
+        time: O((amount * coins) * coins)
+        space: O(amount * coins)
+*/
+class Solution {
+    public int change(int amount, int[] coins) {
+        int[][] DP = new int[amount + 1][coins.length];
+        Arrays.fill(DP[0], 1);
+        
+        for (int currAmount = 1; currAmount <= amount; currAmount++) {
+            for (int currCoinIndex = 0; currCoinIndex < coins.length; currCoinIndex++) {
+                
+                int currOutput = 0;
+                for(int i = 0; i <= currCoinIndex; i++) {
+                    if (currAmount - coins[i] >= 0) {
+                        currOutput += DP[currAmount - coins[i]][i];
+                    }
+                }
+                DP[currAmount][currCoinIndex] = currOutput;
+            }
+        }
+        return DP[amount][coins.length - 1];
+    }
+}     
+
+
+/*
     Approach-2:
         Logic: same as above solution with optimized time complexity, using 0/1 knapsack approach
         DP states: amount, coinIndex
         time: O(amount * coins)
         space: O(amount * coins)
-        https://leetcode.com/problems/coin-change-2/discuss/675444/Java-3-DP-Solutions-Clean-code
 */
+/*
 class Solution {
     int[] coins;
     Integer[][] DP;
@@ -106,11 +133,11 @@ class Solution {
         return DP[amount][startIndex] = output;
     }
 }
+*/
 
 
 /* 
     Approach-3:
-        https://leetcode.com/problems/coin-change-2/discuss/675444/Java-3-DP-Solutions-Clean-code
         Logic: convert approach-2 to a tabulation space optimized solution
         time: O(amount * coins)
         space: O(amount)
