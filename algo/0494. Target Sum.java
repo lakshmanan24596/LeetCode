@@ -57,67 +57,73 @@ class Solution {
 }
 
 
-// // tabulation
-// // refer image in: https://leetcode.com/problems/target-sum/discuss/97335/Short-Java-DP-Solution-with-Explanation
-// class Solution {
-//     public int findTargetSumWays(int[] nums, int target) {
-//         int sumLimit = Arrays.stream(nums).sum();
-//         int sumSize = (2 * sumLimit) + 1;
-//         if(target > sumLimit || target < -sumLimit) {
-//             return 0;
-//         }
+/*
+// Tabulation
+// refer image in: https://leetcode.com/problems/target-sum/discuss/97335/Short-Java-DP-Solution-with-Explanation
+
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int sumLimit = Arrays.stream(nums).sum();
+        int sumSize = (2 * sumLimit) + 1;
+        if(target > sumLimit || target < -sumLimit) {
+            return 0;
+        }
         
-//         int[][] DP = new int[nums.length + 1][sumSize];
-//         DP[0][0 + sumLimit] = 1;    // refer image in the link
-//         int addition, subtraction;
+        int[][] DP = new int[nums.length + 1][sumSize];
+        DP[0][0 + sumLimit] = 1;    // refer image in the link
+        int addition, subtraction;
         
-//         for (int currIndex = 0; currIndex < nums.length; currIndex++) {
-//             for (int currSum = 0; currSum < sumSize; currSum++) {
-//                 int dpCurrIndex = currIndex + 1;
+        for (int currIndex = 0; currIndex < nums.length; currIndex++) {
+            for (int currSum = 0; currSum < sumSize; currSum++) {
+                int dpCurrIndex = currIndex + 1;
                 
-//                 addition = currSum + nums[currIndex] < sumSize ?
-//                             DP[dpCurrIndex - 1][currSum + nums[currIndex]] : 
-//                             0;
-//                 subtraction = currSum - nums[currIndex] >= 0 ?
-//                                 DP[dpCurrIndex - 1][currSum - nums[currIndex]] : 
-//                                 0;
-//                 DP[dpCurrIndex][currSum] = addition + subtraction;
-//             }
-//         }
-//         return DP[nums.length][target + sumLimit];
-//     }
-// }
+                addition = currSum + nums[currIndex] < sumSize ?
+                            DP[dpCurrIndex - 1][currSum + nums[currIndex]] : 
+                            0;
+                subtraction = currSum - nums[currIndex] >= 0 ?
+                                DP[dpCurrIndex - 1][currSum - nums[currIndex]] : 
+                                0;
+                DP[dpCurrIndex][currSum] = addition + subtraction;
+            }
+        }
+        return DP[nums.length][target + sumLimit];
+    }
+}
+*/
 
 
-// // tabulation space optimized
-// class Solution {
-//     public int findTargetSumWays(int[] nums, int target) {
-//         int sumLimit = Arrays.stream(nums).sum();
-//         int sumSize = (2 * sumLimit) + 1;
-//         if(target > sumLimit || target < -sumLimit) {
-//             return 0;
-//         }
+/*
+// Tabulation space optimized
+
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int sumLimit = Arrays.stream(nums).sum();
+        int sumSize = (2 * sumLimit) + 1;
+        if(target > sumLimit || target < -sumLimit) {
+            return 0;
+        }
         
-//         int[] prevDP = new int[sumSize];
-//         int[] currDP = new int[sumSize];
-//         prevDP[0 + sumLimit] = 1;    // refer image in the link
-//         int addition, subtraction;
+        int[] prevDP = new int[sumSize];
+        int[] currDP = new int[sumSize];
+        prevDP[0 + sumLimit] = 1;    // refer image in the link
+        int addition, subtraction;
         
-//         for (int currIndex = 0; currIndex < nums.length; currIndex++) {
-//             for (int currSum = 0; currSum < sumSize; currSum++) {
-//                 int dpCurrIndex = currIndex + 1;
+        for (int currIndex = 0; currIndex < nums.length; currIndex++) {
+            for (int currSum = 0; currSum < sumSize; currSum++) {
+                int dpCurrIndex = currIndex + 1;
                 
-//                 addition = currSum + nums[currIndex] < sumSize ?
-//                             prevDP[currSum + nums[currIndex]] : 
-//                             0;
-//                 subtraction = currSum - nums[currIndex] >= 0 ?
-//                                 prevDP[currSum - nums[currIndex]] : 
-//                                 0;
-//                 currDP[currSum] = addition + subtraction;
-//             }
-//             prevDP = currDP;
-//             currDP = new int[sumSize];
-//         }
-//         return prevDP[target + sumLimit];
-//     }
-// }
+                addition = currSum + nums[currIndex] < sumSize ?
+                            prevDP[currSum + nums[currIndex]] : 
+                            0;
+                subtraction = currSum - nums[currIndex] >= 0 ?
+                                prevDP[currSum - nums[currIndex]] : 
+                                0;
+                currDP[currSum] = addition + subtraction;
+            }
+            prevDP = currDP;
+            currDP = new int[sumSize];
+        }
+        return prevDP[target + sumLimit];
+    }
+}
+*/
