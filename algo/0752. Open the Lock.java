@@ -90,7 +90,7 @@ class Solution
         return -1;                                          // cannot reach target in any of the possible ways
     }
     
-    public int rotateLock(int curr, int index)
+    public int rotateLock(int curr, int index) // instead of this, refer: https://leetcode.com/problems/open-the-lock/solutions/110244/java-bfs-solution/
     {
         //int size = (int)(Math.log(curr)/Math.log(10)) + 1;
         switch(index)
